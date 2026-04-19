@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-    <title>🍽️ RISTORANTE VIRTÙ | Friesenberger Klasse</title>
+    <title>🎾 FRIESENBERGER KLASSE | Padel Turnier 2026</title>
     <style>
         * {
             box-sizing: border-box;
@@ -191,84 +191,66 @@
             border-top: 1px solid #4a5b44;
             padding-top: 16px;
         }
-        .flag {
-            font-size: 1.2rem;
-            margin-right: 4px;
-        }
-        .edit-icon {
-            opacity: 0.7;
-            font-size: 1.2rem;
-            margin-left: 8px;
+        .editable {
+            border-bottom: 2px dotted #b89b6b;
             cursor: pointer;
         }
-        .inline-edit {
-            display: inline-block;
+        .admin-mode .editable:hover {
+            background: #3d5436;
         }
     </style>
 </head>
 <body>
-<div class="page">
+<div class="page" id="mainPage">
     <div class="header-bar">
-        <h1 style="border-bottom: none; padding-bottom: 0; margin-bottom: 0;">🍝 RISTORANTE VIRTÙ <small>Friesenberger Klasse</small></h1>
+        <h1 style="border-bottom: none; padding-bottom: 0; margin-bottom: 0;">🎾 FRIESENBERGER KLASSE <small>Padel 2026</small></h1>
         <div class="btn-group">
             <button class="btn" id="toggleAdminBtn">🔓 Admin</button>
         </div>
     </div>
-    <p style="margin-bottom: 20px; font-style: italic;">Padel Turnier 2026 · Friesenberger Klasse · Teams A–F</p>
+    <p style="margin-bottom: 20px; font-style: italic;">Padel Turnier 2026 · Teams A–F</p>
 
-    <!-- Admin Panel (versteckt) -->
     <div id="adminPanel" class="admin-panel hidden">
         <div style="display: flex; gap: 16px; flex-wrap: wrap; align-items: center;">
-            <span style="font-weight: 700;">✏️ Bearbeitungsmodus aktiv</span>
+            <span style="font-weight: 700;">✏️ Bearbeitungsmodus</span>
             <input type="password" id="adminPass" placeholder="Passwort" value="">
             <button class="btn" id="verifyPassBtn">Freischalten</button>
-            <button class="btn" id="saveAllBtn" style="background:#7b6b4b;">💾 Alle Änderungen speichern</button>
+            <button class="btn" id="saveAllBtn" style="background:#7b6b4b;">💾 Alles speichern</button>
+            <button class="btn" id="exportBtn" style="background:#3e5a3a;">📤 Export</button>
+            <input type="file" id="importFile" accept=".json" style="display:none;">
+            <button class="btn" id="importBtn" style="background:#3e5a3a;">📥 Import</button>
         </div>
-        <p style="margin-top: 12px; font-size: 0.9rem;">Nach Freischaltung können Scores per Klick geändert werden. Speichern nicht vergessen!</p>
+        <p style="margin-top: 12px; font-size: 0.9rem;">Nach Freischaltung klicke auf beliebigen Text zum Bearbeiten.</p>
         <p id="adminStatus" style="color: #c7b28b;"></p>
     </div>
 
-    <!-- Teams Übersicht -->
     <h2>👥 Teams</h2>
-    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(170px,1fr)); gap: 8px; margin-bottom: 30px;">
-        <div class="team-badge"><strong>Team A</strong> 🇩🇪 Marjan Dujak · 🇧🇪 Ilmi Brati</div>
-        <div class="team-badge"><strong>Team B</strong> 🇵🇸 Artan Pnishi · 🇦🇺 Arben Pnishi</div>
-        <div class="team-badge"><strong>Team C</strong> 🇨🇴 Driton Zemaj · 🇧🇷 Arbnon Brati</div>
-        <div class="team-badge"><strong>Team D</strong> 🇲🇾 Limi Maxharraj · 🇦🇷 Rocco Siffredi</div>
-        <div class="team-badge"><strong>Team E</strong> 🇮🇶 Cipriano Gionni · 🇦🇷 Liridon Ajvazi</div>
-        <div class="team-badge"><strong>Team F</strong> 🇧🇹 Guxim Berisha · 🇫🇷 Durim Berisha</div>
-    </div>
+    <div id="teamsContainer" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(170px,1fr)); gap: 8px; margin-bottom: 30px;"></div>
 
-    <!-- WOCHEN 1-5: Matches dynamisch per JS generiert -->
     <h2>📅 Spielplan & Resultate</h2>
     <div id="matchesContainer"></div>
 
-    <!-- Rangliste -->
     <h2>🏆 Rangliste – Top 4 ins Halbfinale</h2>
     <table id="rankingTable">
         <thead><tr><th>Platz</th><th>Team</th><th>Punkte</th></tr></thead>
         <tbody id="rankingBody"></tbody>
     </table>
 
-    <!-- Punktevergabe -->
     <div style="background: #1e2a1b; border-radius: 24px; padding: 18px; margin: 30px 0;">
         <h3 style="margin-top: 0;">📊 Punktevergabe pro Match</h3>
         <p>3:0 Sieg → 3 Punkte · 2:1 Sieg → 2 Punkte · 1:2 Niederlage → 1 Punkt · 0:3 Niederlage → 0 Punkte</p>
-        <p><small>Jeder gewonnene Satz zählt 1 Punkt für das Team.</small></p>
     </div>
 
-    <!-- Halbfinale / Finale -->
     <h2>🥇 Halbfinale & Finale</h2>
-    <p><em>Termine folgen – Top 4 nach Woche 5</em></p>
-    <div style="background: #1d261a; border-radius: 28px; padding: 20px;">
-        <p>??.04.2026 – Halbfinale 1: Platz 1 vs Platz 4</p>
-        <p>??.04.2026 – Halbfinale 2: Platz 2 vs Platz 3</p>
-        <p>??.04.2026 – Spiel um Platz 3</p>
-        <p>??.04.2026 – Finale</p>
+    <div id="finalInfo" style="background: #1d261a; border-radius: 28px; padding: 20px;">
+        <p class="editable-text">??.04.2026 – Halbfinale 1: Platz 1 vs Platz 4</p>
+        <p class="editable-text">??.04.2026 – Halbfinale 2: Platz 2 vs Platz 3</p>
+        <p class="editable-text">??.04.2026 – Spiel um Platz 3</p>
+        <p class="editable-text">??.04.2026 – Finale</p>
     </div>
 
-    <div class="footer-note">
-        ristorante-virtu.ch/friesenberger · nur du bearbeitest
+    <div class="footer-note" id="footerNote" contenteditable="false">
+        Friesenberger Klasse 2026
     </div>
 </div>
 
@@ -276,21 +258,18 @@
     (function(){
         "use strict";
 
-        // ---------- TEAMS DEFINITION ----------
-        const TEAMS = ["A","B","C","D","E","F"];
-        const teamNames = {
-            "A": "🇩🇪 Dujak · 🇧🇪 Brati I.",
-            "B": "🇵🇪 Pnishi A. · 🇵🇪 Pnishi Ar.",
-            "C": "🇩🇪 Zemaj · 🇧🇷 Brati Ar.",
-            "D": "🇲🇾 Maxharraj · 🇸🇮 Siffredi",
-            "E": "🇮🇹 Cipriano · 🇮🇹 Ajvazi",
-            "F": "🇫🇷 Berisha G. · 🇫🇷 Berisha D."
+        // ---------- DATEN ----------
+        let teams = {
+            A: { name: "🇩🇪 Marjan Dujak · 🇧🇪 Ilmi Brati", short: "🇩🇪 Dujak · 🇧🇪 Brati I." },
+            B: { name: "🇵🇸 Artan Pnishi · 🇦🇺 Arben Pnishi", short: "🇵🇪 Pnishi A. · 🇵🇪 Pnishi Ar." },
+            C: { name: "🇨🇴 Driton Zemaj · 🇧🇷 Arbnon Brati", short: "🇩🇪 Zemaj · 🇧🇷 Brati Ar." },
+            D: { name: "🇲🇾 Limi Maxharraj · 🇦🇷 Rocco Siffredi", short: "🇲🇾 Maxharraj · 🇸🇮 Siffredi" },
+            E: { name: "🇮🇶 Cipriano Gionni · 🇦🇷 Liridon Ajvazi", short: "🇮🇹 Cipriano · 🇮🇹 Ajvazi" },
+            F: { name: "🇧🇹 Guxim Berisha · 🇫🇷 Durim Berisha", short: "🇫🇷 Berisha G. · 🇫🇷 Berisha D." }
         };
 
-        // ---------- MATCH DATEN (aus Screenshots) ----------
-        // Struktur: matches[week][index] = { team1, team2, score1, score2, winner, date, location, sets (array) }
         let matchesData = [
-            // Woche 1 (Index 0)
+            // Woche 1
             [
                 { team1:"A", team2:"F", sets:[[6,3],[6,0],[7,6]], winner:"A", date:"Do 26.03.2026 21:00", location:"Yakinarena" },
                 { team1:"B", team2:"E", sets:[[6,2],[6,3],[6,0]], winner:"B", date:"Do 26.03.2026 21:30", location:"Yakinarena" },
@@ -300,7 +279,7 @@
             [
                 { team1:"A", team2:"E", sets:[[6,3],[2,6],[1,6]], winner:"E", date:"Mo 30.03.2026 21:00", location:"Unipadel Rümlang" },
                 { team1:"F", team2:"D", sets:[[0,6],[1,6],[3,6]], winner:"D", date:"Di 31.03.2026 21:00", location:"Unipadel Rümlang" },
-                { team1:"B", team2:"C", sets:[[5,7],[5,3],[]], winner:null, date:"Mo 30.03.2026 21:00", location:"Unipadel Rümlang", incomplete: true } // unvollständig
+                { team1:"B", team2:"C", sets:[[5,7],[5,3],[]], winner:null, date:"Mo 30.03.2026 21:00", location:"Unipadel Rümlang" }
             ],
             // Woche 3
             [
@@ -312,7 +291,7 @@
             [
                 { team1:"A", team2:"C", sets:[[2,6],[4,6],[2,6]], winner:"C", date:"Di 14.04.2026", location:"Neighborhood Spreitenbach" },
                 { team1:"D", team2:"B", sets:[[4,6],[6,4],[2,6]], winner:"B", date:"Do 16.04.2026", location:"Unipadel Rümlang" },
-                { team1:"E", team2:"F", sets:[[],[],[]], winner:null, date:"??.04.2026", location:"", incomplete: true }
+                { team1:"E", team2:"F", sets:[[],[],[]], winner:null, date:"??.04.2026", location:"" }
             ],
             // Woche 5
             [
@@ -322,43 +301,51 @@
             ]
         ];
 
-        // Korrektur: Match B-C Woche2 Satz3 unklar, auf unentschieden setzen? Original zeigt 5-5 ↑, 7-3, letzter Satz fehlt. Wir setzen keinen Winner.
-        // Für Ranking: Gewertet wird nach gespielten Sätzen.
+        const ADMIN_PASSWORD = "friesenberger2026";
+        let isAdmin = false, passwordOK = false;
 
-        // Admin state
-        let isAdmin = false;
-        let passwordOK = false;
-        const ADMIN_PASSWORD = "friesenberger2026";  // ⚠️ Passwort nach Wunsch änderbar
+        // ---------- RENDERN ----------
+        function renderTeams() {
+            let html = '';
+            Object.entries(teams).forEach(([id, t]) => {
+                html += `<div class="team-badge" data-team="${id}"><strong>Team ${id}</strong> <span class="editable-text" data-field="teamName" data-team="${id}">${t.name}</span></div>`;
+            });
+            document.getElementById('teamsContainer').innerHTML = html;
+        }
 
-        // DOM
-        const container = document.getElementById('matchesContainer');
-        const rankingBody = document.getElementById('rankingBody');
-        const adminPanel = document.getElementById('adminPanel');
-        const toggleBtn = document.getElementById('toggleAdminBtn');
-        const passInput = document.getElementById('adminPass');
-        const verifyBtn = document.getElementById('verifyPassBtn');
-        const saveAllBtn = document.getElementById('saveAllBtn');
-        const adminStatus = document.getElementById('adminStatus');
+        function formatSets(sets) {
+            return sets.map(s => (s && s.length===2 && typeof s[0]==='number') ? `${s[0]}:${s[1]}` : '-').join(' ');
+        }
 
-        // ---------- HILFSFUNKTIONEN ----------
+        function renderMatches() {
+            const container = document.getElementById('matchesContainer');
+            let html = '';
+            matchesData.forEach((week, w) => {
+                html += `<h3>📆 Woche ${w+1} – ${w===0?'23.–29.03.': w===1?'30.03.–05.04.': w===2?'06.–12.04.': w===3?'13.–19.04.':'20.–26.04.2026'}</h3>`;
+                week.forEach((m, idx) => {
+                    const setsStr = formatSets(m.sets);
+                    html += `<div class="match-card" data-week="${w}" data-index="${idx}">`;
+                    html += `<div class="match-header"><span class="editable-text" data-field="matchDate" data-week="${w}" data-index="${idx}">${m.date} ${m.location}</span> ${m.winner ? '🏆' : ''}</div>`;
+                    html += `<div class="match-teams">`;
+                    html += `<span class="team">Team ${m.team1} <span class="editable-text" data-field="teamShort" data-team="${m.team1}">${teams[m.team1].short}</span></span>`;
+                    html += `<span class="score editable-text" data-field="sets" data-week="${w}" data-index="${idx}">${setsStr}</span>`;
+                    html += `<span class="team">Team ${m.team2} <span class="editable-text" data-field="teamShort" data-team="${m.team2}">${teams[m.team2].short}</span></span>`;
+                    html += `</div></div>`;
+                });
+            });
+            container.innerHTML = html;
+        }
+
         function calculatePoints() {
             let points = { A:0, B:0, C:0, D:0, E:0, F:0 };
             matchesData.flat().forEach(m => {
                 if (!m.sets || m.sets.length<3) return;
-                const t1 = m.team1, t2 = m.team2;
                 let t1w = 0, t2w = 0;
-                m.sets.forEach(s => {
-                    if(s.length===2 && typeof s[0]==='number' && typeof s[1]==='number') {
-                        if(s[0] > s[1]) t1w++;
-                        else if(s[1] > s[0]) t2w++;
-                    }
-                });
-                // Punktevergabe
-                if(t1w === 3) { points[t1] += 3; }
-                else if(t2w === 3) { points[t2] += 3; }
-                else if(t1w === 2 && t2w === 1) { points[t1] += 2; points[t2] += 1; }
-                else if(t2w === 2 && t1w === 1) { points[t2] += 2; points[t1] += 1; }
-                // bei unvollständig keine Punkte
+                m.sets.forEach(s => { if(s && s.length===2 && typeof s[0]==='number') s[0] > s[1] ? t1w++ : (s[1] > s[0] ? t2w++ : 0); });
+                if(t1w === 3) points[m.team1] += 3;
+                else if(t2w === 3) points[m.team2] += 3;
+                else if(t1w === 2) { points[m.team1] += 2; points[m.team2] += 1; }
+                else if(t2w === 2) { points[m.team2] += 2; points[m.team1] += 1; }
             });
             return points;
         }
@@ -366,126 +353,58 @@
         function renderRanking() {
             const pts = calculatePoints();
             const sorted = Object.entries(pts).sort((a,b) => b[1] - a[1]);
-            rankingBody.innerHTML = '';
-            sorted.forEach(([team, p], idx) => {
+            const tbody = document.getElementById('rankingBody');
+            tbody.innerHTML = '';
+            sorted.forEach(([team, p], i) => {
                 const tr = document.createElement('tr');
-                if(idx<4) tr.className = 'ranking-1';
-                tr.innerHTML = `<td>${idx+1}</td><td><strong>Team ${team}</strong> ${teamNames[team]}</td><td>${p}</td>`;
-                rankingBody.appendChild(tr);
+                if(i<4) tr.className = 'ranking-1';
+                tr.innerHTML = `<td>${i+1}</td><td><strong>Team ${team}</strong> <span class="editable-text" data-field="teamShort" data-team="${team}">${teams[team].short}</span></td>
+                               <td><span class="editable-text" data-field="points" data-team="${team}">${p}</span></td>`;
+                tbody.appendChild(tr);
             });
         }
 
-        function formatSets(sets) {
-            return sets.map(s => {
-                if(!s || s.length<2) return '-';
-                if(typeof s[0]!=='number') return '-';
-                return `${s[0]}:${s[1]}`;
-            }).join(' ');
+        function makeEditable() {
+            if(!passwordOK) return;
+            document.querySelectorAll('.editable-text').forEach(el => {
+                el.classList.add('editable');
+                el.setAttribute('contenteditable', String(passwordOK));
+            });
         }
 
-        function renderMatches() {
-            if(!container) return;
-            let html = '';
-            for(let w=0; w<matchesData.length; w++) {
-                const weekMatches = matchesData[w];
-                html += `<h3>📆 Woche ${w+1} – ${w===0?'23.–29.03.': w===1?'30.03.–05.04.': w===2?'06.–12.04.': w===3?'13.–19.04.':'20.–26.04.2026'}</h3>`;
-                weekMatches.forEach((m, idx) => {
-                    const t1 = m.team1, t2 = m.team2;
-                    const setsStr = formatSets(m.sets);
-                    const winner = m.winner;
-                    const dateLoc = `${m.date} ${m.location}`.trim();
-                    html += `<div class="match-card" data-week="${w}" data-index="${idx}">`;
-                    html += `<div class="match-header"><span>${dateLoc}</span> ${winner ? '🏆' : ''}</div>`;
-                    html += `<div class="match-teams">`;
-                    html += `<span class="team">Team ${t1} ${teamNames[t1].substring(0,20)}</span>`;
-                    html += `<span class="score" id="score-${w}-${idx}">${setsStr}</span>`;
-                    html += `<span class="team">Team ${t2} ${teamNames[t2].substring(0,20)}</span>`;
-                    html += `</div>`;
-                    if(isAdmin && passwordOK) {
-                        html += `<div style="margin-top:10px;"><button class="btn" data-edit="${w}-${idx}">✎ Score ändern</button></div>`;
-                    }
-                    html += `</div>`;
-                });
+        // Event Delegation für Änderungen
+        document.addEventListener('input', e => {
+            if(!passwordOK) return;
+            const el = e.target.closest('[data-field]');
+            if(!el) return;
+            const field = el.dataset.field;
+            if(field === 'teamName' || field === 'teamShort') {
+                const team = el.dataset.team;
+                if(field === 'teamName') teams[team].name = el.innerText;
+                else teams[team].short = el.innerText;
+                if(field === 'teamName') renderTeams(); 
+                renderMatches(); renderRanking();
             }
-            container.innerHTML = html;
+        });
 
-            if(isAdmin && passwordOK) {
-                document.querySelectorAll('[data-edit]').forEach(btn => {
-                    btn.addEventListener('click', (e) => {
-                        const [w,i] = btn.dataset.edit.split('-').map(Number);
-                        editMatchScore(w,i);
-                    });
-                });
-            }
-        }
-
-        function editMatchScore(week, index) {
-            const match = matchesData[week][index];
-            let newSets = prompt(`Neue Satzergebnisse (Format: 6 3, 6 2, 7 5) für Team ${match.team1} vs ${match.team2}`, match.sets.map(s=>s.join(' ')).join(', '));
-            if(!newSets) return;
-            try {
-                let parts = newSets.split(',').map(p => p.trim().split(/\s+/).map(Number));
-                if(parts.length===3 && parts.every(a=>a.length===2 && !isNaN(a[0])&&!isNaN(a[1]))) {
-                    match.sets = parts;
-                    // winner automatisch bestimmen
-                    let t1w=0, t2w=0;
-                    parts.forEach(s => { if(s[0]>s[1]) t1w++; else if(s[1]>s[0]) t2w++; });
-                    match.winner = t1w > t2w ? match.team1 : (t2w > t1w ? match.team2 : null);
-                    renderMatches();
-                    renderRanking();
-                } else alert('Falsches Format');
-            } catch(e) { alert('Fehler'); }
-        }
-
-        function checkPassword() {
-            if(passInput.value === ADMIN_PASSWORD) {
-                passwordOK = true;
-                adminStatus.textContent = '✅ Freigeschaltet – du kannst Scores ändern.';
-                renderMatches();
-            } else {
-                passwordOK = false;
-                adminStatus.textContent = '❌ Falsches Passwort';
-            }
-        }
-
-        function saveToLocal() {
-            localStorage.setItem('friesenbergerMatches', JSON.stringify(matchesData));
-            alert('Gespeichert! (lokal im Browser)');
-        }
-
-        function loadFromLocal() {
-            const saved = localStorage.getItem('friesenbergerMatches');
-            if(saved) {
-                try {
-                    matchesData = JSON.parse(saved);
-                    renderMatches();
-                    renderRanking();
-                } catch(e){}
-            }
-        }
-
-        // initial
         function init() {
-            loadFromLocal();
-            renderMatches();
-            renderRanking();
-
-            toggleBtn.addEventListener('click', ()=>{
-                adminPanel.classList.toggle('hidden');
-                if(!adminPanel.classList.contains('hidden')) {
-                    passwordOK = false;
-                    adminStatus.textContent = 'Bitte Passwort eingeben';
-                } else {
-                    isAdmin = false;
-                    passwordOK = false;
-                }
-                renderMatches();
-            });
-
-            verifyBtn.addEventListener('click', checkPassword);
-            saveAllBtn.addEventListener('click', saveToLocal);
+            renderTeams(); renderMatches(); renderRanking();
+            document.getElementById('toggleAdminBtn').onclick = () => {
+                document.getElementById('adminPanel').classList.toggle('hidden');
+                if(!passwordOK) makeEditable();
+            };
+            document.getElementById('verifyPassBtn').onclick = () => {
+                passwordOK = document.getElementById('adminPass').value === ADMIN_PASSWORD;
+                document.getElementById('adminStatus').innerText = passwordOK ? '✅ Freigeschaltet' : '❌ Falsch';
+                document.getElementById('mainPage').classList.toggle('admin-mode', passwordOK);
+                makeEditable();
+            };
+            document.getElementById('saveAllBtn').onclick = () => {
+                localStorage.setItem('friesenbergerData', JSON.stringify({teams, matchesData}));
+                alert('Gespeichert!');
+            };
+            (function load(){ const d=localStorage.getItem('friesenbergerData'); if(d){ let p=JSON.parse(d); teams=p.teams; matchesData=p.matchesData; renderTeams(); renderMatches(); renderRanking(); } })();
         }
-
         init();
     })();
 </script>
