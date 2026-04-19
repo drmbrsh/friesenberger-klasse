@@ -22,6 +22,8 @@
         td { padding: 14px; border-bottom: 1px solid #4b5e45; }
         [contenteditable="true"] { border-bottom: 2px dotted #b89b6b; outline: none; min-width: 50px; display: inline-block; }
         .admin-mode .editable:hover { background: #3d5436; }
+        .wappen { text-align: center; margin: 5px 0 15px; }
+        .wappen img { max-width: 100px; height: auto; border-radius: 12px; border: 2px solid #b89b6b; background: #1e261c; padding: 5px; }
     </style>
 </head>
 <body>
@@ -29,6 +31,12 @@
     <h1>🎾 FRIESENBERGER KLASSE <small>2026</small>
         <button class="btn" id="adminToggle">🔓 Admin</button>
     </h1>
+    
+    <!-- FRIESENBERGER WAPPEN -->
+    <div class="wappen">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/9/9f/Friesenberg-Wappen_Sm.png" alt="Wappen Friesenberg">
+    </div>
+
     <div id="adminPanel" class="admin-panel hidden">
         <input type="password" id="passInput" placeholder="Passwort">
         <button class="btn" id="loginBtn">Freischalten</button>
@@ -49,7 +57,7 @@
 
 <script>
     (function(){
-        // STARDDATEN (wie aus den Bildern)
+        // STARDDATEN
         const DEFAULT_DATA = {
             teams: {
                 A: { long: "🇩🇪 Marjan Dujak · 🇧🇪 Ilmi Brati", short: "🇩🇪 Dujak · 🇧🇪 Brati I." },
