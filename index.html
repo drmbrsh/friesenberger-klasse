@@ -3,409 +3,168 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-    <title>🎾 FRIESENBERGER KLASSE | Padel Turnier 2026</title>
+    <title>🎾 FRIESENBERGER KLASSE 2026</title>
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-        }
-        body {
-            background: #1a1e1b;
-            font-family: 'Segoe UI', 'Roboto', system-ui, sans-serif;
-            padding: 16px 12px 40px;
-            color: #f0eadb;
-        }
-        .page {
-            max-width: 1000px;
-            margin: 0 auto;
-            background: #2c312b;
-            border-radius: 36px 36px 28px 28px;
-            padding: 22px 18px 32px;
-            box-shadow: 0 12px 28px rgba(0,0,0,0.6);
-            border: 1px solid #4e5b4c;
-        }
-        h1 {
-            font-size: 2.1rem;
-            font-weight: 600;
-            letter-spacing: 1px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            border-bottom: 3px solid #b89b6b;
-            padding-bottom: 16px;
-            margin-bottom: 20px;
-            color: #f3e7d3;
-        }
-        h1 small {
-            font-size: 1.1rem;
-            font-weight: 400;
-            background: #3f4a3c;
-            padding: 6px 16px;
-            border-radius: 50px;
-            color: #e3d6bf;
-            border: 1px solid #7e8d76;
-        }
-        h2 {
-            font-size: 1.8rem;
-            font-weight: 500;
-            margin: 30px 0 16px 0;
-            color: #dbc9a8;
-            border-left: 12px solid #b89b6b;
-            padding-left: 18px;
-        }
-        h3 {
-            font-weight: 600;
-            font-size: 1.3rem;
-            margin: 24px 0 12px 0;
-            color: #d4c2a2;
-        }
-        .header-bar {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 16px;
-        }
-        .btn-group {
-            display: flex;
-            gap: 12px;
-        }
-        .btn {
-            background: #3e493b;
-            border: 1px solid #7b8b74;
-            color: #f2e5d0;
-            padding: 10px 20px;
-            border-radius: 60px;
-            font-weight: 600;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: all 0.15s;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.3);
-        }
-        .btn:hover {
-            background: #576b51;
-            border-color: #b89b6b;
-        }
-        .btn.admin {
-            background: #6d5c3e;
-            border-color: #dbbc87;
-            color: #fff6e5;
-        }
-        .admin-panel {
-            background: #232b22;
-            padding: 16px 20px;
-            border-radius: 30px;
-            margin: 20px 0 16px;
-            border: 1px dashed #b89b6b;
-        }
-        .hidden {
-            display: none !important;
-        }
-        input, select {
-            background: #1e241c;
-            border: 1px solid #8a7b60;
-            color: #f2e5d0;
-            padding: 8px 14px;
-            border-radius: 40px;
-            font-size: 1rem;
-            margin-right: 10px;
-        }
-        .team-badge {
-            display: inline-block;
-            background: #1f2a1e;
-            padding: 6px 16px;
-            border-radius: 32px;
-            font-weight: 600;
-            border: 1px solid #7e8d76;
-            margin: 6px 6px 0 0;
-        }
-        .match-card {
-            background: #232b20;
-            border-radius: 28px;
-            padding: 18px 20px;
-            margin-bottom: 22px;
-            border: 1px solid #5f7256;
-            box-shadow: inset 0 0 0 1px #3e4e38;
-        }
-        .match-header {
-            display: flex;
-            justify-content: space-between;
-            color: #cbbda0;
-            font-weight: 500;
-            margin-bottom: 10px;
-            border-bottom: 1px dashed #7e8d76;
-            padding-bottom: 8px;
-        }
-        .match-teams {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-        .team {
-            font-weight: 700;
-            font-size: 1.3rem;
-        }
-        .score {
-            font-family: 'Courier New', monospace;
-            font-size: 2rem;
-            font-weight: 700;
-            background: #10170e;
-            padding: 6px 18px;
-            border-radius: 48px;
-            letter-spacing: 6px;
-            border: 1px solid #b89b6b;
-            color: #efe1c6;
-        }
-        .winner-icon {
-            margin-left: 6px;
-            font-size: 1.6rem;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            background: #1e261c;
-            border-radius: 24px;
-            overflow: hidden;
-            box-shadow: 0 6px 12px rgba(0,0,0,0.5);
-            margin: 25px 0;
-        }
-        th {
-            background: #3c4d36;
-            color: #f3e9d9;
-            font-weight: 600;
-            padding: 14px 8px;
-            text-align: left;
-        }
-        td {
-            padding: 14px 8px;
-            border-bottom: 1px solid #4b5e45;
-        }
-        .ranking-1 { background: #b89b6b20; border-left: 8px solid #d4af37; }
-        .footer-note {
-            margin-top: 30px;
-            text-align: right;
-            font-size: 0.9rem;
-            color: #a7b39b;
-            border-top: 1px solid #4a5b44;
-            padding-top: 16px;
-        }
-        .editable {
-            border-bottom: 2px dotted #b89b6b;
-            cursor: pointer;
-        }
-        .admin-mode .editable:hover {
-            background: #3d5436;
-        }
+        * { box-sizing: border-box; margin: 0; }
+        body { background: #1a1e1b; font-family: system-ui, sans-serif; padding: 16px 12px; color: #f0eadb; }
+        .page { max-width: 1000px; margin: 0 auto; background: #2c312b; border-radius: 36px; padding: 22px 18px; border: 1px solid #4e5b4c; }
+        h1 { font-size: 2.1rem; border-bottom: 3px solid #b89b6b; padding-bottom: 16px; margin-bottom: 20px; color: #f3e7d3; display: flex; justify-content: space-between; }
+        h2 { font-size: 1.8rem; margin: 30px 0 16px; color: #dbc9a8; border-left: 12px solid #b89b6b; padding-left: 18px; }
+        .btn { background: #3e493b; border: 1px solid #7b8b74; color: #f2e5d0; padding: 10px 20px; border-radius: 60px; font-weight: 600; cursor: pointer; }
+        .admin-panel { background: #232b22; padding: 16px; border-radius: 30px; margin: 20px 0; border: 1px dashed #b89b6b; }
+        .hidden { display: none !important; }
+        input { background: #1e241c; border: 1px solid #8a7b60; color: #f2e5d0; padding: 8px 14px; border-radius: 40px; }
+        .team-badge { background: #1f2a1e; padding: 6px 16px; border-radius: 32px; border: 1px solid #7e8d76; margin: 6px; display: inline-block; }
+        .match-card { background: #232b20; border-radius: 28px; padding: 18px; margin-bottom: 22px; border: 1px solid #5f7256; }
+        .score { font-family: monospace; font-size: 2rem; background: #10170e; padding: 6px 18px; border-radius: 48px; border: 1px solid #b89b6b; }
+        table { width: 100%; border-collapse: collapse; background: #1e261c; border-radius: 24px; margin: 25px 0; }
+        th { background: #3c4d36; padding: 14px; text-align: left; }
+        td { padding: 14px; border-bottom: 1px solid #4b5e45; }
+        [contenteditable="true"] { border-bottom: 2px dotted #b89b6b; outline: none; min-width: 50px; display: inline-block; }
+        .admin-mode .editable:hover { background: #3d5436; }
     </style>
 </head>
 <body>
 <div class="page" id="mainPage">
-    <div class="header-bar">
-        <h1 style="border-bottom: none; padding-bottom: 0; margin-bottom: 0;">🎾 FRIESENBERGER KLASSE <small>Padel 2026</small></h1>
-        <div class="btn-group">
-            <button class="btn" id="toggleAdminBtn">🔓 Admin</button>
-        </div>
-    </div>
-    <p style="margin-bottom: 20px; font-style: italic;">Padel Turnier 2026 · Teams A–F</p>
-
+    <h1>🎾 FRIESENBERGER KLASSE <small>2026</small>
+        <button class="btn" id="adminToggle">🔓 Admin</button>
+    </h1>
     <div id="adminPanel" class="admin-panel hidden">
-        <div style="display: flex; gap: 16px; flex-wrap: wrap; align-items: center;">
-            <span style="font-weight: 700;">✏️ Bearbeitungsmodus</span>
-            <input type="password" id="adminPass" placeholder="Passwort" value="">
-            <button class="btn" id="verifyPassBtn">Freischalten</button>
-            <button class="btn" id="saveAllBtn" style="background:#7b6b4b;">💾 Alles speichern</button>
-            <button class="btn" id="exportBtn" style="background:#3e5a3a;">📤 Export</button>
-            <input type="file" id="importFile" accept=".json" style="display:none;">
-            <button class="btn" id="importBtn" style="background:#3e5a3a;">📥 Import</button>
-        </div>
-        <p style="margin-top: 12px; font-size: 0.9rem;">Nach Freischaltung klicke auf beliebigen Text zum Bearbeiten.</p>
-        <p id="adminStatus" style="color: #c7b28b;"></p>
+        <input type="password" id="passInput" placeholder="Passwort">
+        <button class="btn" id="loginBtn">Freischalten</button>
+        <button class="btn" id="saveBtn" style="background:#7b6b4b;">💾 Speichern</button>
+        <button class="btn" id="resetBtn">↻ Reset</button>
+        <p id="statusMsg"></p>
     </div>
 
     <h2>👥 Teams</h2>
-    <div id="teamsContainer" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(170px,1fr)); gap: 8px; margin-bottom: 30px;"></div>
+    <div id="teamsArea"></div>
 
-    <h2>📅 Spielplan & Resultate</h2>
-    <div id="matchesContainer"></div>
+    <h2>📅 Spielplan</h2>
+    <div id="matchesArea"></div>
 
-    <h2>🏆 Rangliste – Top 4 ins Halbfinale</h2>
-    <table id="rankingTable">
-        <thead><tr><th>Platz</th><th>Team</th><th>Punkte</th></tr></thead>
-        <tbody id="rankingBody"></tbody>
-    </table>
-
-    <div style="background: #1e2a1b; border-radius: 24px; padding: 18px; margin: 30px 0;">
-        <h3 style="margin-top: 0;">📊 Punktevergabe pro Match</h3>
-        <p>3:0 Sieg → 3 Punkte · 2:1 Sieg → 2 Punkte · 1:2 Niederlage → 1 Punkt · 0:3 Niederlage → 0 Punkte</p>
-    </div>
-
-    <h2>🥇 Halbfinale & Finale</h2>
-    <div id="finalInfo" style="background: #1d261a; border-radius: 28px; padding: 20px;">
-        <p class="editable-text">??.04.2026 – Halbfinale 1: Platz 1 vs Platz 4</p>
-        <p class="editable-text">??.04.2026 – Halbfinale 2: Platz 2 vs Platz 3</p>
-        <p class="editable-text">??.04.2026 – Spiel um Platz 3</p>
-        <p class="editable-text">??.04.2026 – Finale</p>
-    </div>
-
-    <div class="footer-note" id="footerNote" contenteditable="false">
-        Friesenberger Klasse 2026
-    </div>
+    <h2>🏆 Rangliste</h2>
+    <table id="rankingTable"><tbody id="rankingBody"></tbody></table>
 </div>
 
 <script>
     (function(){
-        "use strict";
-
-        // ---------- DATEN ----------
-        let teams = {
-            A: { name: "🇩🇪 Marjan Dujak · 🇧🇪 Ilmi Brati", short: "🇩🇪 Dujak · 🇧🇪 Brati I." },
-            B: { name: "🇵🇸 Artan Pnishi · 🇦🇺 Arben Pnishi", short: "🇵🇪 Pnishi A. · 🇵🇪 Pnishi Ar." },
-            C: { name: "🇨🇴 Driton Zemaj · 🇧🇷 Arbnon Brati", short: "🇩🇪 Zemaj · 🇧🇷 Brati Ar." },
-            D: { name: "🇲🇾 Limi Maxharraj · 🇦🇷 Rocco Siffredi", short: "🇲🇾 Maxharraj · 🇸🇮 Siffredi" },
-            E: { name: "🇮🇶 Cipriano Gionni · 🇦🇷 Liridon Ajvazi", short: "🇮🇹 Cipriano · 🇮🇹 Ajvazi" },
-            F: { name: "🇧🇹 Guxim Berisha · 🇫🇷 Durim Berisha", short: "🇫🇷 Berisha G. · 🇫🇷 Berisha D." }
+        // STARDDATEN (wie aus den Bildern)
+        const DEFAULT_DATA = {
+            teams: {
+                A: { long: "🇩🇪 Marjan Dujak · 🇧🇪 Ilmi Brati", short: "🇩🇪 Dujak · 🇧🇪 Brati I." },
+                B: { long: "🇵🇸 Artan Pnishi · 🇦🇺 Arben Pnishi", short: "🇵🇪 Pnishi A. · 🇵🇪 Pnishi Ar." },
+                C: { long: "🇨🇴 Driton Zemaj · 🇧🇷 Arbnon Brati", short: "🇩🇪 Zemaj · 🇧🇷 Brati Ar." },
+                D: { long: "🇲🇾 Limi Maxharraj · 🇦🇷 Rocco Siffredi", short: "🇲🇾 Maxharraj · 🇸🇮 Siffredi" },
+                E: { long: "🇮🇶 Cipriano Gionni · 🇦🇷 Liridon Ajvazi", short: "🇮🇹 Cipriano · 🇮🇹 Ajvazi" },
+                F: { long: "🇧🇹 Guxim Berisha · 🇫🇷 Durim Berisha", short: "🇫🇷 Berisha G. · 🇫🇷 Berisha D." }
+            },
+            matches: [
+                [{t1:"A",t2:"F",s:[[6,3],[6,0],[7,6]],d:"Do 26.03. 21:00 Yakinarena"},
+                 {t1:"B",t2:"E",s:[[6,2],[6,3],[6,0]],d:"Do 26.03. 21:30 Yakinarena"},
+                 {t1:"C",t2:"D",s:[[7,5],[7,5],[6,3]],d:"Do 26.03. 21:30 Yakinarena"}],
+                [{t1:"A",t2:"E",s:[[6,3],[2,6],[1,6]],d:"Mo 30.03. 21:00 Unipadel"},
+                 {t1:"F",t2:"D",s:[[0,6],[1,6],[3,6]],d:"Di 31.03. 21:00 Unipadel"},
+                 {t1:"B",t2:"C",s:[[5,7],[5,3],[]],d:"Mo 30.03. 21:00 Unipadel"}],
+                [{t1:"A",t2:"D",s:[[4,6],[7,5],[6,2]],d:"Mi 08.04. 21:00 Yakinarena"},
+                 {t1:"E",t2:"C",s:[[0,6],[0,6],[3,6]],d:"Do 16.04. Rümlang"},
+                 {t1:"F",t2:"B",s:[[0,6],[1,6],[2,6]],d:"Mi 08.04. 21:00 Yakinarena"}],
+                [{t1:"A",t2:"C",s:[[2,6],[4,6],[2,6]],d:"Di 14.04. Spreitenbach"},
+                 {t1:"D",t2:"B",s:[[4,6],[6,4],[2,6]],d:"Do 16.04. Unipadel"},
+                 {t1:"E",t2:"F",s:[[],[],[]],d:"??.04."}],
+                [{t1:"A",t2:"B",s:[[1,6],[5,7],[2,6]],d:"18.03. 21:30 PDL"},
+                 {t1:"C",t2:"F",s:[[],[],[]],d:"??.04."},
+                 {t1:"D",t2:"E",s:[[],[],[]],d:"??.04."}]
+            ]
         };
 
-        let matchesData = [
-            // Woche 1
-            [
-                { team1:"A", team2:"F", sets:[[6,3],[6,0],[7,6]], winner:"A", date:"Do 26.03.2026 21:00", location:"Yakinarena" },
-                { team1:"B", team2:"E", sets:[[6,2],[6,3],[6,0]], winner:"B", date:"Do 26.03.2026 21:30", location:"Yakinarena" },
-                { team1:"C", team2:"D", sets:[[7,5],[7,5],[6,3]], winner:"C", date:"Do 26.03.2026 21:30", location:"Yakinarena" }
-            ],
-            // Woche 2
-            [
-                { team1:"A", team2:"E", sets:[[6,3],[2,6],[1,6]], winner:"E", date:"Mo 30.03.2026 21:00", location:"Unipadel Rümlang" },
-                { team1:"F", team2:"D", sets:[[0,6],[1,6],[3,6]], winner:"D", date:"Di 31.03.2026 21:00", location:"Unipadel Rümlang" },
-                { team1:"B", team2:"C", sets:[[5,7],[5,3],[]], winner:null, date:"Mo 30.03.2026 21:00", location:"Unipadel Rümlang" }
-            ],
-            // Woche 3
-            [
-                { team1:"A", team2:"D", sets:[[4,6],[7,5],[6,2]], winner:"A", date:"Mi 08.04.2026 21:00", location:"Yakinarena" },
-                { team1:"E", team2:"C", sets:[[0,6],[0,6],[3,6]], winner:"C", date:"Do 16.04.2026", location:"Rümlang" },
-                { team1:"F", team2:"B", sets:[[0,6],[1,6],[2,6]], winner:"B", date:"Mi 08.04.2026 21:00", location:"Yakinarena" }
-            ],
-            // Woche 4
-            [
-                { team1:"A", team2:"C", sets:[[2,6],[4,6],[2,6]], winner:"C", date:"Di 14.04.2026", location:"Neighborhood Spreitenbach" },
-                { team1:"D", team2:"B", sets:[[4,6],[6,4],[2,6]], winner:"B", date:"Do 16.04.2026", location:"Unipadel Rümlang" },
-                { team1:"E", team2:"F", sets:[[],[],[]], winner:null, date:"??.04.2026", location:"" }
-            ],
-            // Woche 5
-            [
-                { team1:"A", team2:"B", sets:[[1,6],[5,7],[2,6]], winner:"B", date:"18.03.2026 21:30", location:"PDL Zürich" },
-                { team1:"C", team2:"F", sets:[[],[],[]], winner:null, date:"??.04.2026", location:"" },
-                { team1:"D", team2:"E", sets:[[],[],[]], winner:null, date:"??.04.2026", location:"" }
-            ]
-        ];
+        let data = JSON.parse(localStorage.getItem('friesenbergerSave')) || JSON.parse(JSON.stringify(DEFAULT_DATA));
+        let isAdmin = false;
+        const PW = "friesenberger2026";
 
-        const ADMIN_PASSWORD = "friesenberger2026";
-        let isAdmin = false, passwordOK = false;
+        const teamsArea = document.getElementById('teamsArea');
+        const matchesArea = document.getElementById('matchesArea');
+        const rankingBody = document.getElementById('rankingBody');
+        const adminPanel = document.getElementById('adminPanel');
+        const statusMsg = document.getElementById('statusMsg');
 
-        // ---------- RENDERN ----------
-        function renderTeams() {
-            let html = '';
-            Object.entries(teams).forEach(([id, t]) => {
-                html += `<div class="team-badge" data-team="${id}"><strong>Team ${id}</strong> <span class="editable-text" data-field="teamName" data-team="${id}">${t.name}</span></div>`;
+        function renderAll() {
+            // Teams
+            teamsArea.innerHTML = '';
+            Object.entries(data.teams).forEach(([id, t]) => {
+                const div = document.createElement('div'); div.className = 'team-badge';
+                div.innerHTML = `<strong>Team ${id}</strong> <span contenteditable="${isAdmin}" class="editable" data-team="${id}" data-field="long">${t.long}</span>`;
+                teamsArea.appendChild(div);
             });
-            document.getElementById('teamsContainer').innerHTML = html;
-        }
-
-        function formatSets(sets) {
-            return sets.map(s => (s && s.length===2 && typeof s[0]==='number') ? `${s[0]}:${s[1]}` : '-').join(' ');
-        }
-
-        function renderMatches() {
-            const container = document.getElementById('matchesContainer');
-            let html = '';
-            matchesData.forEach((week, w) => {
-                html += `<h3>📆 Woche ${w+1} – ${w===0?'23.–29.03.': w===1?'30.03.–05.04.': w===2?'06.–12.04.': w===3?'13.–19.04.':'20.–26.04.2026'}</h3>`;
-                week.forEach((m, idx) => {
-                    const setsStr = formatSets(m.sets);
-                    html += `<div class="match-card" data-week="${w}" data-index="${idx}">`;
-                    html += `<div class="match-header"><span class="editable-text" data-field="matchDate" data-week="${w}" data-index="${idx}">${m.date} ${m.location}</span> ${m.winner ? '🏆' : ''}</div>`;
-                    html += `<div class="match-teams">`;
-                    html += `<span class="team">Team ${m.team1} <span class="editable-text" data-field="teamShort" data-team="${m.team1}">${teams[m.team1].short}</span></span>`;
-                    html += `<span class="score editable-text" data-field="sets" data-week="${w}" data-index="${idx}">${setsStr}</span>`;
-                    html += `<span class="team">Team ${m.team2} <span class="editable-text" data-field="teamShort" data-team="${m.team2}">${teams[m.team2].short}</span></span>`;
-                    html += `</div></div>`;
+            // Matches
+            matchesArea.innerHTML = '';
+            data.matches.forEach((week, w) => {
+                const h3 = document.createElement('h3'); h3.textContent = `📆 Woche ${w+1}`; matchesArea.appendChild(h3);
+                week.forEach((m, i) => {
+                    const card = document.createElement('div'); card.className = 'match-card';
+                    card.innerHTML = `
+                        <div><span contenteditable="${isAdmin}" class="editable" data-week="${w}" data-idx="${i}" data-field="date">${m.d}</span> ${m.s?.[0]?.[0]>m.s?.[0]?.[1]?'🏆':''}</div>
+                        <div style="display:flex; justify-content:space-between; align-items:center;">
+                            <span>Team ${m.t1} <span contenteditable="${isAdmin}" class="editable" data-team="${m.t1}" data-field="short">${data.teams[m.t1].short}</span></span>
+                            <span class="score"><span contenteditable="${isAdmin}" class="editable" data-week="${w}" data-idx="${i}" data-field="sets">${m.s.map(s=>s.length? s[0]+':'+s[1]:'-').join(' ')}</span></span>
+                            <span>Team ${m.t2} <span contenteditable="${isAdmin}" class="editable" data-team="${m.t2}" data-field="short">${data.teams[m.t2].short}</span></span>
+                        </div>`;
+                    matchesArea.appendChild(card);
                 });
             });
-            container.innerHTML = html;
-        }
-
-        function calculatePoints() {
-            let points = { A:0, B:0, C:0, D:0, E:0, F:0 };
-            matchesData.flat().forEach(m => {
-                if (!m.sets || m.sets.length<3) return;
-                let t1w = 0, t2w = 0;
-                m.sets.forEach(s => { if(s && s.length===2 && typeof s[0]==='number') s[0] > s[1] ? t1w++ : (s[1] > s[0] ? t2w++ : 0); });
-                if(t1w === 3) points[m.team1] += 3;
-                else if(t2w === 3) points[m.team2] += 3;
-                else if(t1w === 2) { points[m.team1] += 2; points[m.team2] += 1; }
-                else if(t2w === 2) { points[m.team2] += 2; points[m.team1] += 1; }
+            // Rangliste
+            const pts = { A:0,B:0,C:0,D:0,E:0,F:0 };
+            data.matches.flat().forEach(m => {
+                if(!m.s[0] || m.s[0].length===0) return;
+                let t1w=0, t2w=0;
+                m.s.forEach(s => { if(s[0]>s[1]) t1w++; else if(s[1]>s[0]) t2w++; });
+                if(t1w===3) pts[m.t1]+=3; else if(t2w===3) pts[m.t2]+=3;
+                else if(t1w===2) { pts[m.t1]+=2; pts[m.t2]+=1; } else if(t2w===2) { pts[m.t2]+=2; pts[m.t1]+=1; }
             });
-            return points;
-        }
-
-        function renderRanking() {
-            const pts = calculatePoints();
-            const sorted = Object.entries(pts).sort((a,b) => b[1] - a[1]);
-            const tbody = document.getElementById('rankingBody');
-            tbody.innerHTML = '';
-            sorted.forEach(([team, p], i) => {
+            const sorted = Object.entries(pts).sort((a,b) => b[1]-a[1]);
+            rankingBody.innerHTML = '';
+            sorted.forEach(([t,p],i) => {
                 const tr = document.createElement('tr');
-                if(i<4) tr.className = 'ranking-1';
-                tr.innerHTML = `<td>${i+1}</td><td><strong>Team ${team}</strong> <span class="editable-text" data-field="teamShort" data-team="${team}">${teams[team].short}</span></td>
-                               <td><span class="editable-text" data-field="points" data-team="${team}">${p}</span></td>`;
-                tbody.appendChild(tr);
+                tr.innerHTML = `<td>${i+1}</td><td>Team ${t} <span contenteditable="${isAdmin}" class="editable" data-team="${t}" data-field="short">${data.teams[t].short}</span></td><td>${p}</td>`;
+                rankingBody.appendChild(tr);
             });
         }
 
-        function makeEditable() {
-            if(!passwordOK) return;
-            document.querySelectorAll('.editable-text').forEach(el => {
-                el.classList.add('editable');
-                el.setAttribute('contenteditable', String(passwordOK));
-            });
-        }
-
-        // Event Delegation für Änderungen
-        document.addEventListener('input', e => {
-            if(!passwordOK) return;
-            const el = e.target.closest('[data-field]');
-            if(!el) return;
+        function handleEdit(e) {
+            if(!isAdmin) return;
+            const el = e.target.closest('[data-field]'); if(!el) return;
             const field = el.dataset.field;
-            if(field === 'teamName' || field === 'teamShort') {
-                const team = el.dataset.team;
-                if(field === 'teamName') teams[team].name = el.innerText;
-                else teams[team].short = el.innerText;
-                if(field === 'teamName') renderTeams(); 
-                renderMatches(); renderRanking();
+            if(field === 'long' || field === 'short') {
+                data.teams[el.dataset.team][field] = el.innerText;
+            } else if(field === 'date') {
+                data.matches[el.dataset.week][el.dataset.idx].d = el.innerText;
+            } else if(field === 'sets') {
+                const w = el.dataset.week, i = el.dataset.idx;
+                const parts = el.innerText.trim().split(/\s+/);
+                data.matches[w][i].s = parts.map(p => p==='-' ? [] : p.split(':').map(Number));
             }
-        });
-
-        function init() {
-            renderTeams(); renderMatches(); renderRanking();
-            document.getElementById('toggleAdminBtn').onclick = () => {
-                document.getElementById('adminPanel').classList.toggle('hidden');
-                if(!passwordOK) makeEditable();
-            };
-            document.getElementById('verifyPassBtn').onclick = () => {
-                passwordOK = document.getElementById('adminPass').value === ADMIN_PASSWORD;
-                document.getElementById('adminStatus').innerText = passwordOK ? '✅ Freigeschaltet' : '❌ Falsch';
-                document.getElementById('mainPage').classList.toggle('admin-mode', passwordOK);
-                makeEditable();
-            };
-            document.getElementById('saveAllBtn').onclick = () => {
-                localStorage.setItem('friesenbergerData', JSON.stringify({teams, matchesData}));
-                alert('Gespeichert!');
-            };
-            (function load(){ const d=localStorage.getItem('friesenbergerData'); if(d){ let p=JSON.parse(d); teams=p.teams; matchesData=p.matchesData; renderTeams(); renderMatches(); renderRanking(); } })();
+            if(field !== 'sets') renderAll();
         }
-        init();
+
+        document.addEventListener('input', handleEdit);
+        document.getElementById('adminToggle').onclick = () => adminPanel.classList.toggle('hidden');
+        document.getElementById('loginBtn').onclick = () => {
+            isAdmin = document.getElementById('passInput').value === PW;
+            statusMsg.textContent = isAdmin ? '✅ Admin-Modus aktiv' : '❌ Falsches Passwort';
+            document.getElementById('mainPage').classList.toggle('admin-mode', isAdmin);
+            renderAll();
+        };
+        document.getElementById('saveBtn').onclick = () => {
+            localStorage.setItem('friesenbergerSave', JSON.stringify(data));
+            alert('💾 Gespeichert!');
+        };
+        document.getElementById('resetBtn').onclick = () => {
+            if(confirm('Alles zurücksetzen?')) {
+                data = JSON.parse(JSON.stringify(DEFAULT_DATA));
+                renderAll(); alert('Zurückgesetzt.');
+            }
+        };
+        renderAll();
     })();
 </script>
 </body>
