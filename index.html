@@ -597,6 +597,56 @@ function renderCurrent(){
   if(tab==="duostats") renderMainDuoStats();
 }
 
+
+function renderMainDuoStats(){
+  const s=AS();
+  const {pts,pl,w,l}=computePts(s);
+  const duos=Object.entries(s.teams).map(([tid,t])=>{
+    const played=pl[tid]||0,wins=w[tid]||0,losses=l[tid]||0,points=pts[tid]||0;
+    const wr=played?Math.round(wins/played*100):0;
+    let sW=0,sL=0,cb=0,ww=0;const ml=[];
+    s.matches.flat().forEach(m=>{
+      if(m.t1!==tid&&m.t2!==tid)return;
+      if(!m.s[0]||!m.s[0].length)return;
+      const my=m.t1===tid?0:1,op=1-my;
+      let myw=0,opw=0;
+      m.s.forEach(x=>{if(x.length<2)return;if(x[my]>x[op])myw++;else if(x[op]>x[my])opw++;});
+      sW+=myw;sL+=opw;
+      if(m.s.length>=2&&m.s[0].length>=2&&m.s[0][op]>m.s[0][my]&&myw>opw)cb++;
+      if(myw===3&&opw===0)ww++;
+      const sc=m.s.map(x=>x.length>=2?(m.t1===tid?x[0]+':'+x[1]:x[1]+':'+x[0]):'').join(' ');
+      ml.push({win:myw>opw,opp:m.t1===tid?m.t2:m.t1,score:sc});
+    });
+    return{tid,t,played,wins,losses,points,wr,sW,sL,sd:sW-sL,swr:sW+sL?Math.round(sW/(sW+sL)*100):0,cb,ww,ml};
+  }).sort((a,b)=>b.wr-a.wr||b.points-a.points);
+
+  let h='<div style="margin-top:14px">';
+  duos.forEach((d,i)=>{
+    const form=d.ml.slice(-5).map(m=>'<span style="display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;font-size:.58rem;font-weight:800;background:'+(m.win?'rgba(61,186,98,.15)':'rgba(212,88,88,.15)')+';color:'+(m.win?'#3dba62':'#d45858')+'">'+(m.win?'W':'L')+'</span>').join('');
+    const matches=d.ml.map(m=>'<div style="display:flex;align-items:center;gap:9px;padding:8px 14px;border-bottom:1px solid rgba(255,255,255,.05)"><span style="font-size:.6rem;font-weight:800;padding:3px 8px;border-radius:20px;min-width:40px;text-align:center;background:'+(m.win?'rgba(61,186,98,.1)':'rgba(212,88,88,.1)')+';color:'+(m.win?'#3dba62':'#d45858')+';border:1px solid '+(m.win?'rgba(61,186,98,.2)':'rgba(212,88,88,.2)')+'">'+( m.win?'WIN':'LOSS')+'</span><div style="flex:1"><div style="font-size:.8rem;font-weight:500;color:#e2ddd4">vs Team '+m.opp+' - '+((s.teams[m.opp]&&s.teams[m.opp].long)||m.opp)+'</div><div style="font-size:.62rem;color:#4a5844;margin-top:1px">'+m.score+'</div></div></div>').join('')||'<div style="padding:12px 14px;text-align:center;color:#4a5844;font-size:.78rem">Noch keine Spiele</div>';
+
+    h+='<div style="background:'+(i===0?'linear-gradient(135deg,#1a2219,#141a13)':'#141a13')+';border:1px solid '+(i===0?'rgba(200,168,74,.25)':'rgba(255,255,255,.06)')+';border-radius:14px;margin-bottom:10px;overflow:hidden">';
+    h+='<div style="padding:14px 15px;border-bottom:1px solid rgba(255,255,255,.06)">';
+    h+='<div style="display:flex;justify-content:space-between;margin-bottom:12px">';
+    h+='<div style="display:flex;align-items:center;gap:9px"><div style="background:rgba(200,168,74,.08);border:1px solid rgba(200,168,74,.2);border-radius:7px;width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-size:.85rem;font-weight:800;color:#c8a84a">'+d.tid+'</div>';
+    h+='<div><div style="font-size:.88rem;font-weight:700;color:#f8f4ec">'+d.t.long+'</div><div style="font-size:.62rem;color:#4a5844">'+d.played+' Spiele</div></div></div>';
+    h+='<div style="text-align:right"><div style="font-size:1.9rem;font-weight:900;color:'+(i===0?'#c8a84a':'#f8f4ec')+';line-height:1">'+d.wr+'%</div><div style="font-size:.52rem;color:#4a5844;text-transform:uppercase">Siegrate</div></div></div>';
+    h+='<div style="height:4px;background:rgba(255,255,255,.06);border-radius:4px;overflow:hidden;margin-bottom:12px"><div style="height:100%;width:'+d.wr+'%;background:linear-gradient(90deg,#c8a84a,#f2d060);border-radius:4px"></div></div>';
+    h+='<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:5px;margin-bottom:10px">';
+    h+='<div style="background:rgba(0,0,0,.25);border-radius:7px;padding:7px;text-align:center"><div style="font-size:1.1rem;font-weight:800;color:#3dba62">'+d.wins+'</div><div style="font-size:.5rem;color:#4a5844;text-transform:uppercase">Siege</div></div>';
+    h+='<div style="background:rgba(0,0,0,.25);border-radius:7px;padding:7px;text-align:center"><div style="font-size:1.1rem;font-weight:800;color:#d45858">'+d.losses+'</div><div style="font-size:.5rem;color:#4a5844;text-transform:uppercase">Niederl.</div></div>';
+    h+='<div style="background:rgba(0,0,0,.25);border-radius:7px;padding:7px;text-align:center"><div style="font-size:1.1rem;font-weight:800;color:#f8f4ec">'+d.points+'</div><div style="font-size:.5rem;color:#4a5844;text-transform:uppercase">Punkte</div></div>';
+    h+='<div style="background:rgba(0,0,0,.25);border-radius:7px;padding:7px;text-align:center"><div style="font-size:1.1rem;font-weight:800;color:'+(d.sd>=0?'#3dba62':'#d45858')+'">'+(d.sd>=0?'+':'')+d.sd+'</div><div style="font-size:.5rem;color:#4a5844;text-transform:uppercase">Satzd.</div></div></div>';
+    h+='<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:5px'+(d.ml.length?';margin-bottom:10px':'')+'">';
+    h+='<div style="background:rgba(0,0,0,.2);border-radius:7px;padding:7px;text-align:center"><div style="font-size:.8rem;font-weight:700;color:#f8f4ec">'+d.swr+'%</div><div style="font-size:.5rem;color:#4a5844;text-transform:uppercase">Satz-Win%</div></div>';
+    h+='<div style="background:rgba(0,0,0,.2);border-radius:7px;padding:7px;text-align:center"><div style="font-size:.8rem;font-weight:700;color:'+(d.cb>0?'#c8a84a':'#4a5844')+'">'+d.cb+'</div><div style="font-size:.5rem;color:#4a5844;text-transform:uppercase">Comebacks</div></div>';
+    h+='<div style="background:rgba(0,0,0,.2);border-radius:7px;padding:7px;text-align:center"><div style="font-size:.8rem;font-weight:700;color:'+(d.ww>0?'#3dba62':'#4a5844')+'">'+d.ww+'</div><div style="font-size:.5rem;color:#4a5844;text-transform:uppercase">3:0 Siege</div></div></div>';
+    if(d.ml.length)h+='<div style="display:flex;gap:4px">'+form+'</div>';
+    h+='</div>'+matches+'</div>';
+  });
+  h+='</div>';
+  document.getElementById("tabDuostats").innerHTML=h;
+}
 loadData();
 renderSeason();
 </script>
@@ -728,166 +778,4 @@ function renderDuoStatsContent(){
     });
     return {tid,t,played,wins,losses,points,wr,sW,sL,sd:sW-sL,swr:sW+sL?Math.round(sW/(sW+sL)*100):0,cb,ww,ml};
   }).sort((a,b)=>b.wr-a.wr||b.points-a.points);
-  // Find Guxim's team (B)
-  const myTeam = duos.find(d => d.tid === 'B');
-  let h = '';
-
-  if(myTeam){
-    const wr = myTeam.wr;
-    const sd = myTeam.sd >= 0 ? '+'+myTeam.sd : myTeam.sd;
-    h += '<div style="background:linear-gradient(135deg,#1a1f0e,#232810,#1a1f0e);border:1.5px solid #c8a84a;border-radius:16px;padding:18px;margin-bottom:16px;position:relative;overflow:hidden">';
-    h += '<div style="position:absolute;top:0;left:20%;right:20%;height:1px;background:linear-gradient(90deg,transparent,rgba(200,168,74,.4),transparent)"></div>';
-    h += '<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px">';
-    h += '<div><div style="font-size:.55rem;letter-spacing:2.5px;text-transform:uppercase;color:#c8a84a;font-weight:700;margin-bottom:4px">⭐ Mein Team</div>';
-    h += '<div style="font-size:1.4rem;font-weight:900;color:#f2d060;line-height:1">'+myTeam.t.long+'</div>';
-    h += '<div style="font-size:.68rem;color:#8a9882;margin-top:3px">Team '+myTeam.tid+' · '+myTeam.played+' Spiele</div></div>';
-    h += '<div style="text-align:right"><div style="font-size:2.4rem;font-weight:900;color:#c8a84a;line-height:1">'+wr+'%</div>';
-    h += '<div style="font-size:.55rem;color:#4a5844;text-transform:uppercase;letter-spacing:.5px">Siegrate</div></div></div>';
-    h += '<div style="height:4px;background:rgba(255,255,255,.08);border-radius:4px;overflow:hidden;margin-bottom:12px">';
-    h += '<div style="height:100%;width:'+wr+'%;background:linear-gradient(90deg,#c8a84a,#f2d060);border-radius:4px"></div></div>';
-    h += '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px">';
-    h += '<div style="background:rgba(0,0,0,.3);border-radius:8px;padding:8px;text-align:center"><div style="font-size:1.2rem;font-weight:800;color:#3dba62">'+myTeam.wins+'</div><div style="font-size:.5rem;color:#4a5844;text-transform:uppercase">Siege</div></div>';
-    h += '<div style="background:rgba(0,0,0,.3);border-radius:8px;padding:8px;text-align:center"><div style="font-size:1.2rem;font-weight:800;color:#d45858">'+myTeam.losses+'</div><div style="font-size:.5rem;color:#4a5844;text-transform:uppercase">Niederl.</div></div>';
-    h += '<div style="background:rgba(0,0,0,.3);border-radius:8px;padding:8px;text-align:center"><div style="font-size:1.2rem;font-weight:800;color:#f8f4ec">'+myTeam.points+'</div><div style="font-size:.5rem;color:#4a5844;text-transform:uppercase">Punkte</div></div>';
-    h += '<div style="background:rgba(0,0,0,.3);border-radius:8px;padding:8px;text-align:center"><div style="font-size:1.2rem;font-weight:800;color:'+(myTeam.sd>=0?'#3dba62':'#d45858')+'">'+sd+'</div><div style="font-size:.5rem;color:#4a5844;text-transform:uppercase">Satzd.</div></div>';
-    h += '</div></div>';
-  }
-
-  h += '<div style="font-size:.58rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#4a5844;margin:4px 0 10px">Alle Duos</div>';
-
-  duos.forEach((d,i)=>{
-    const form=d.ml.slice(-5).map(m=>'<span style="display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;font-size:.58rem;font-weight:800;background:'+(m.win?'rgba(61,186,98,.15)':'rgba(212,88,88,.15)')+';color:'+(m.win?'#3dba62':'#d45858')+'">'+(m.win?'W':'L')+'</span>').join('');
-    const matches=d.ml.map(m=>'<div style="display:flex;align-items:center;gap:9px;padding:8px 14px;border-bottom:1px solid rgba(255,255,255,.05)"><span style="font-size:.6rem;font-weight:800;padding:3px 8px;border-radius:20px;min-width:40px;text-align:center;background:'+(m.win?'rgba(61,186,98,.1)':'rgba(212,88,88,.1)')+';color:'+(m.win?'#3dba62':'#d45858')+'">'+(m.win?'WIN':'LOSS')+'</span><div style="flex:1"><div style="font-size:.8rem;font-weight:500;color:#e2ddd4">vs Team '+m.opp+' – '+((s.teams[m.opp]&&s.teams[m.opp].long)||m.opp)+'</div><div style="font-size:.62rem;color:#4a5844">'+m.score+'</div></div></div>').join('')||'<div style="padding:12px;text-align:center;color:#4a5844;font-size:.78rem">Noch keine Spiele</div>';
-    h+='<div style="background:'+(i===0?'linear-gradient(135deg,#1a2219,#141a13)':'#141a13')+';border:1px solid '+(i===0?'rgba(200,168,74,.25)':'rgba(255,255,255,.06)')+';border-radius:14px;margin-bottom:10px;overflow:hidden">';
-    h+='<div style="padding:14px 15px;border-bottom:1px solid rgba(255,255,255,.06)">';
-    h+='<div style="display:flex;justify-content:space-between;margin-bottom:12px"><div style="display:flex;align-items:center;gap:9px"><div style="background:rgba(200,168,74,.08);border:1px solid rgba(200,168,74,.2);border-radius:7px;width:30px;height:30px;display:flex;align-items:center;justify-content:center;font-family:sans-serif;font-size:.85rem;font-weight:800;color:#c8a84a">'+d.tid+'</div><div><div style="font-size:.88rem;font-weight:700;color:#f8f4ec">'+d.t.long+'</div><div style="font-size:.62rem;color:#4a5844">'+d.played+' Spiele</div></div></div>';
-    h+='<div style="text-align:right"><div style="font-size:1.9rem;font-weight:800;color:'+(i===0?'#c8a84a':'#f8f4ec')+';line-height:1">'+d.wr+'%</div><div style="font-size:.52rem;color:#4a5844;text-transform:uppercase">Siegrate</div></div></div>';
-    h+='<div style="height:4px;background:rgba(255,255,255,.06);border-radius:4px;overflow:hidden;margin-bottom:12px"><div style="height:100%;width:'+d.wr+'%;background:linear-gradient(90deg,#c8a84a,#f2d060);border-radius:4px"></div></div>';
-    h+='<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:5px;margin-bottom:10px">';
-    h+='<div style="background:rgba(0,0,0,.25);border-radius:7px;padding:7px;text-align:center"><div style="font-size:1.1rem;font-weight:800;color:#3dba62">'+d.wins+'</div><div style="font-size:.5rem;color:#4a5844;text-transform:uppercase">Siege</div></div>';
-    h+='<div style="background:rgba(0,0,0,.25);border-radius:7px;padding:7px;text-align:center"><div style="font-size:1.1rem;font-weight:800;color:#d45858">'+d.losses+'</div><div style="font-size:.5rem;color:#4a5844;text-transform:uppercase">Niederl.</div></div>';
-    h+='<div style="background:rgba(0,0,0,.25);border-radius:7px;padding:7px;text-align:center"><div style="font-size:1.1rem;font-weight:800;color:#f8f4ec">'+d.points+'</div><div style="font-size:.5rem;color:#4a5844;text-transform:uppercase">Punkte</div></div>';
-    h+='<div style="background:rgba(0,0,0,.25);border-radius:7px;padding:7px;text-align:center"><div style="font-size:1.1rem;font-weight:800;color:'+(d.sd>=0?'#3dba62':'#d45858')+'">'+(d.sd>=0?'+':'')+d.sd+'</div><div style="font-size:.5rem;color:#4a5844;text-transform:uppercase">Satzd.</div></div></div>';
-    h+='<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:5px'+(d.ml.length?';margin-bottom:10px':'')+'">';
-    h+='<div style="background:rgba(0,0,0,.2);border-radius:7px;padding:7px;text-align:center"><div style="font-size:.8rem;font-weight:700;color:#f8f4ec">'+d.swr+'%</div><div style="font-size:.5rem;color:#4a5844;text-transform:uppercase">Satz-Win%</div></div>';
-    h+='<div style="background:rgba(0,0,0,.2);border-radius:7px;padding:7px;text-align:center"><div style="font-size:.8rem;font-weight:700;color:'+(d.cb>0?'#c8a84a':'#4a5844')+'">'+d.cb+'</div><div style="font-size:.5rem;color:#4a5844;text-transform:uppercase">Comebacks</div></div>';
-    h+='<div style="background:rgba(0,0,0,.2);border-radius:7px;padding:7px;text-align:center"><div style="font-size:.8rem;font-weight:700;color:'+(d.ww>0?'#3dba62':'#4a5844')+'">'+d.ww+'</div><div style="font-size:.5rem;color:#4a5844;text-transform:uppercase">3:0 Siege</div></div></div>';
-    if(d.ml.length)h+='<div style="display:flex;gap:4px">'+form+'</div>';
-    h+='</div>'+matches+'</div>';
-  });
-  container.innerHTML=h;
-}
-
-function renderMainDuoStats(){
-  const container=document.getElementById('mainDuoStatsContent');
-  if(!container)return;
-  // Reuse renderDuoStatsContent logic but for active season
-  const origFn=document.getElementById('seasonDetailPage');
-  // Temporarily set a fake detail page dataset
-  const fake=document.createElement('div');
-  fake.id='seasonDetailPage';
-  fake.dataset.seasonIdx=store.activeSeason;
-  document.body.appendChild(fake);
-  // Swap container
-  const realId='duoStatsContent';
-  const origEl=document.getElementById(realId);
-  container.id=realId;
-  renderDuoStatsContent();
-  container.id='mainDuoStatsContent';
-  if(origEl)origEl.id=realId;
-  fake.remove();
-}
-
-window.openSeasonDetail=function(idx){
-  closeSeasonMenu();
-  const s=store.seasons[idx];
-  if(!s)return;
-  const isActive=idx===store.activeSeason;
-  const pts2={},pl2={},w2={},l2={};
-  Object.keys(s.teams).forEach(t=>{pts2[t]=0;pl2[t]=0;w2[t]=0;l2[t]=0;});
-  s.matches.flat().forEach(m=>{
-    if(!m.s[0]||!m.s[0].length)return;
-    let a=0,b=0;
-    m.s.forEach(x=>{if(x.length<2)return;if(x[0]>x[1])a++;else if(x[1]>x[0])b++;});
-    if(!a&&!b)return;
-    pl2[m.t1]++;pl2[m.t2]++;
-    if(a===3){pts2[m.t1]+=3;w2[m.t1]++;l2[m.t2]++;}
-    else if(b===3){pts2[m.t2]+=3;w2[m.t2]++;l2[m.t1]++;}
-    else if(a===2){pts2[m.t1]+=2;pts2[m.t2]+=1;w2[m.t1]++;l2[m.t2]++;}
-    else if(b===2){pts2[m.t2]+=2;pts2[m.t1]+=1;w2[m.t2]++;l2[m.t1]++;}
-  });
-  const sorted=Object.entries(pts2).sort((a,b)=>b[1]-a[1]);
-  const done=s.matches.flat().filter(m=>m.s[0]&&m.s[0].length).length;
-  const total=s.matches.flat().length;
-  const pct=total?Math.round(done/total*100):0;
-  const winner=s.winner||(done===total&&total>0?sorted[0][0]:null);
-
-  const page=document.createElement('div');
-  page.id='seasonDetailPage';
-  page.dataset.seasonIdx=idx;
-  page.style.cssText='position:fixed;inset:0;z-index:300;background:#080c08;overflow-y:auto;font-family:DM Sans,sans-serif;color:#e2ddd4';
-
-  const rankRows=sorted.map(([t,p],i)=>`<div style="display:flex;align-items:center;gap:11px;padding:12px 15px;border-bottom:1px solid rgba(255,255,255,.06)${i===sorted.length-1?';border-bottom:none':''}${i===0?';background:linear-gradient(90deg,rgba(200,168,74,.05),transparent)':''}"><div style="font-size:.9rem;font-weight:700;color:${i===0?'#c8a84a':'#4a5844'};min-width:22px;text-align:center">${i===0?'🏆':i+1}</div><div style="background:rgba(200,168,74,.08);border:1px solid rgba(200,168,74,.2);border-radius:7px;width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-size:.85rem;font-weight:800;color:#c8a84a">${t}</div><div style="flex:1"><div style="font-size:.86rem;font-weight:600;color:#e2ddd4">${s.teams[t].long}</div><div style="font-size:.62rem;color:#4a5844">${pl2[t]||0}G · ${w2[t]||0}W · ${l2[t]||0}N</div></div><div style="text-align:right"><div style="font-size:1.2rem;font-weight:800;color:#f8f4ec">${p}</div><div style="font-size:.52rem;color:#4a5844;text-transform:uppercase">Pkt</div></div></div>`).join('');
-
-  const teamRows=Object.entries(s.teams).map(([id,t])=>`<div style="display:flex;align-items:center;gap:11px;background:#141a13;border:1px solid rgba(255,255,255,.06);border-radius:11px;padding:10px 13px"><div style="background:rgba(200,168,74,.08);border:1px solid rgba(200,168,74,.2);border-radius:7px;width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-size:.85rem;font-weight:800;color:#c8a84a">${id}</div><div style="font-size:.86rem;font-weight:500;color:#e2ddd4">${t.long}</div></div>`).join('');
-
-  let spHtml='';
-  s.matches.forEach((week,wi)=>{
-    const lbl=wi<5?'Hinrunde · Runde '+(wi+1):'Rückrunde · Runde '+(wi-4);
-    spHtml+='<div style="display:flex;align-items:center;gap:8px;margin:14px 0 8px"><div style="flex:1;height:1px;background:rgba(255,255,255,.06)"></div><div style="font-size:.58rem;letter-spacing:2px;text-transform:uppercase;color:#4a5844;font-weight:700;white-space:nowrap">'+lbl+'</div><div style="flex:1;height:1px;background:rgba(255,255,255,.06)"></div></div>';
-    week.forEach(m=>{
-      const played=m.s[0]&&m.s[0].length;
-      const sc=played?'<div style="display:inline-block;background:rgba(0,0,0,.4);border:1px solid rgba(255,255,255,.13);border-radius:7px;padding:5px 9px;font-size:.9rem;font-weight:800;color:#f8f4ec;letter-spacing:2px">'+m.s.map(x=>x.length>=2?x[0]+':'+x[1]:'–').join('  ')+'</div>':'<div style="display:inline-block;background:rgba(0,0,0,.2);border:1px solid rgba(255,255,255,.06);border-radius:7px;padding:5px 9px;font-size:.62rem;color:#4a5844">ausstehend</div>';
-      spHtml+='<div style="background:#141a13;border:1px solid rgba(255,255,255,.06);border-radius:13px;padding:12px 14px;margin-bottom:7px"><div style="font-size:.62rem;color:#4a5844;margin-bottom:9px">📍 '+m.d+'</div><div style="display:flex;align-items:center;gap:7px"><div style="flex:1;text-align:right"><div style="font-size:.58rem;letter-spacing:1px;text-transform:uppercase;color:#4a5844;font-weight:700">Team '+m.t1+'</div><div style="font-size:.85rem;font-weight:500;color:#e2ddd4;margin-top:2px">'+((s.teams[m.t1]&&s.teams[m.t1].long)||m.t1)+'</div></div><div style="text-align:center;min-width:86px">'+sc+'</div><div style="flex:1"><div style="font-size:.58rem;letter-spacing:1px;text-transform:uppercase;color:#4a5844;font-weight:700">Team '+m.t2+'</div><div style="font-size:.85rem;font-weight:500;color:#e2ddd4;margin-top:2px">'+((s.teams[m.t2]&&s.teams[m.t2].long)||m.t2)+'</div></div></div></div>';
-    });
-  });
-
-  const acc=(id,icon,title,sub,body)=>`
-    <div style="background:#141a13;border:1px solid rgba(255,255,255,.06);border-radius:14px;overflow:hidden;margin-bottom:8px">
-      <div onclick="toggleAcc('${id}')" style="display:flex;justify-content:space-between;align-items:center;padding:14px 16px;cursor:pointer">
-        <div style="display:flex;align-items:center;gap:10px">
-          <span style="font-size:1.1rem">${icon}</span>
-          <div><div style="font-size:.88rem;font-weight:700;color:#f8f4ec">${title}</div><div style="font-size:.62rem;color:#4a5844;margin-top:1px">${sub}</div></div>
-        </div>
-        <span id="${id}-arrow" style="color:#c8a84a;font-size:1.1rem;transition:transform .2s">›</span>
-      </div>
-      <div id="${id}" style="display:none;border-top:1px solid rgba(255,255,255,.06);padding:12px">${body}</div>
-    </div>`;
-
-  page.innerHTML=`
-    <div style="position:sticky;top:0;background:rgba(8,12,8,.95);backdrop-filter:blur(20px);border-bottom:1px solid rgba(200,168,74,.15);padding:0 16px;z-index:10">
-      <div style="max-width:720px;margin:0 auto;display:flex;align-items:center;height:56px">
-        <button onclick="document.getElementById('seasonDetailPage').remove()" style="background:none;border:none;color:#c8a84a;cursor:pointer;display:flex;align-items:center;gap:5px;padding:6px 0">
-          <span style="font-size:1.3rem">‹</span><span style="font-size:.82rem;font-weight:600">Zurück</span>
-        </button>
-        <div style="flex:1;text-align:center;font-size:1rem;font-weight:800;color:#f8f4ec;letter-spacing:.5px">${s.name}</div>
-        <div style="width:60px"></div>
-      </div>
-    </div>
-    <div style="max-width:720px;margin:0 auto;padding:0 16px 40px">
-      ${winner?'<div style="background:linear-gradient(135deg,#1c1808,#231e0a);border:1.5px solid #c8a84a;border-radius:16px;padding:18px;text-align:center;margin:16px 0"><div style="font-size:1.5rem">🏆</div><div style="font-size:.58rem;letter-spacing:2.5px;text-transform:uppercase;color:#c8a84a;font-weight:700;margin-top:4px">Champion</div><div style="font-size:1.7rem;font-weight:900;letter-spacing:1px;color:#f2d060;margin-top:4px">Team '+winner+' – '+s.teams[winner].long+'</div></div>':''}
-      <div style="background:linear-gradient(145deg,#111a10,#0d160c);border:1px solid rgba(200,168,74,.2);border-radius:18px;padding:18px;margin:${winner?'8px':'16px'} 0 12px">
-        <div style="display:flex;justify-content:space-between;margin-bottom:12px">
-          <span style="font-size:.58rem;letter-spacing:2px;text-transform:uppercase;color:#c8a84a;font-weight:700">${isActive?'Aktive Season':'Archiv'}</span>
-          <span style="font-size:.62rem;font-weight:700;padding:3px 10px;border-radius:20px;background:${s.closed?'rgba(200,168,74,.1)':'rgba(61,186,98,.1)'};color:${s.closed?'#c8a84a':'#3dba62'};border:1px solid ${s.closed?'rgba(200,168,74,.2)':'rgba(61,186,98,.2)'}">${s.closed?'Abgeschlossen':'Läuft'}</span>
-        </div>
-        <div style="display:flex;justify-content:space-between;font-size:.68rem;color:#4a5844;margin-bottom:6px"><span>${done} / ${total} Spiele</span><span>${pct}%</span></div>
-        <div style="height:4px;background:rgba(255,255,255,.06);border-radius:4px;overflow:hidden;margin-bottom:14px"><div style="height:100%;width:${pct}%;background:linear-gradient(90deg,#c8a84a,#f2d060);border-radius:4px"></div></div>
-        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:7px">
-          <div style="background:rgba(0,0,0,.25);border-radius:10px;padding:9px;text-align:center"><div style="font-size:1.5rem;font-weight:800;color:#f8f4ec">${Object.keys(s.teams).length}</div><div style="font-size:.55rem;color:#4a5844;text-transform:uppercase">Teams</div></div>
-          <div style="background:rgba(0,0,0,.25);border-radius:10px;padding:9px;text-align:center"><div style="font-size:1.5rem;font-weight:800;color:#f8f4ec">${total}</div><div style="font-size:.55rem;color:#4a5844;text-transform:uppercase">Spiele</div></div>
-          <div style="background:rgba(0,0,0,.25);border-radius:10px;padding:9px;text-align:center"><div style="font-size:1.5rem;font-weight:800;color:#f8f4ec">${total-done}</div><div style="font-size:.55rem;color:#4a5844;text-transform:uppercase">Offen</div></div>
-        </div>
-      </div>
-      ${acc('acc-rangliste','🏆','Rangliste',sorted.length+' Teams','<div style=\"background:#141a13;border-radius:10px;overflow:hidden\">'+rankRows+'</div>')}
-      ${acc('acc-teams','👥','Teams',Object.keys(s.teams).length+' Duos','<div style=\"display:flex;flex-direction:column;gap:6px\">'+teamRows+'</div>')}
-      ${acc('acc-spielplan','📅','Spielplan',done+'/'+total+' Spiele',spHtml)}
-      ${acc('acc-duostats','📊','DuoStats','Statistiken aller Duos','<div id=\"duoStatsContent\">Lade...</div>')}
-    </div>`;
-
-  document.body.appendChild(page);
-};
-</script>
-
-</body>
-</html>
+>
