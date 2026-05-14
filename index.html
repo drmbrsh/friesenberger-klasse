@@ -8,31 +8,14 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
 <style>
-:root {
-  --black:   #080c08;
-  --dark:    #0e140e;
-  --card:    #141a13;
-  --card2:   #1a221a;
-  --border:  rgba(255,255,255,0.06);
-  --border2: rgba(255,255,255,0.12);
-  --gold:    #c8a84a;
-  --gold2:   #f2d060;
-  --gold3:   rgba(200,168,74,0.12);
-  --green:   #3dba62;
-  --red:     #d45858;
-  --text:    #e2ddd4;
-  --text2:   #8a9882;
-  --text3:   #4a5844;
-  --white:   #f8f4ec;
-}
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { background: var(–black); scroll-behavior: smooth; }
+html { background: #080c08; scroll-behavior: smooth; }
 body {
 font-family: ‘DM Sans’, sans-serif;
-color: var(–text);
+color: #e2ddd4;
 min-height: 100vh;
-background: var(–black);
+background: #080c08;
 background-image:
 radial-gradient(ellipse 80% 40% at 50% -10%, rgba(200,168,74,0.07) 0%, transparent 70%),
 radial-gradient(ellipse 50% 30% at 100% 80%, rgba(61,186,98,0.04) 0%, transparent 60%);
@@ -44,7 +27,7 @@ header {
 position: sticky; top: 0; z-index: 100;
 background: rgba(8,12,8,0.88);
 backdrop-filter: blur(20px);
-border-bottom: 1px solid var(–border);
+border-bottom: 1px solid rgba(255,255,255,0.07);
 padding: 0 20px;
 }
 .header-inner {
@@ -54,23 +37,23 @@ height: 60px;
 }
 .logo-badge {
 width: 36px; height: 36px; border-radius: 9px;
-border: 1.5px solid var(–gold); overflow: hidden; flex-shrink: 0;
+border: 1.5px solid #c8a84a; overflow: hidden; flex-shrink: 0;
 }
 .logo-badge img { width: 100%; height: 100%; object-fit: cover; }
 .header-text {}
 .header-title {
 font-family: ‘Bebas Neue’, sans-serif;
-font-size: 1.25rem; letter-spacing: 2px; color: var(–white);
+font-size: 1.25rem; letter-spacing: 2px; color: #f8f4ec;
 line-height: 1;
 }
 .header-live {
 display: flex; align-items: center; gap: 5px;
-font-size: 0.65rem; color: var(–text3); letter-spacing: 0.8px;
+font-size: 0.65rem; color: #4a5844; letter-spacing: 0.8px;
 text-transform: uppercase; margin-top: 2px;
 }
 .pulse {
 width: 6px; height: 6px; border-radius: 50%;
-background: var(–green);
+background: #3dba62;
 animation: pulse 2s ease-in-out infinite;
 }
 @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.4;transform:scale(0.8)} }
@@ -81,24 +64,24 @@ animation: pulse 2s ease-in-out infinite;
 /* ── TABS ── */
 .tabs {
 display: flex; gap: 2px; margin: 20px 0 0;
-background: var(–card); border: 1px solid var(–border);
+background: #141a13; border: 1px solid rgba(255,255,255,0.07);
 border-radius: 14px; padding: 4px; overflow: hidden;
 }
 .tab-btn {
 flex: 1; padding: 9px 4px;
 background: none; border: none; border-radius: 10px;
 font-family: ‘DM Sans’, sans-serif; font-size: 0.78rem; font-weight: 500;
-color: var(–text3); cursor: pointer; transition: all 0.2s; white-space: nowrap;
+color: #4a5844; cursor: pointer; transition: all 0.2s; white-space: nowrap;
 }
 .tab-btn.active {
-background: var(–card2); color: var(–gold);
+background: #1a221a; color: #c8a84a;
 border: 1px solid rgba(200,168,74,0.2);
 }
 
 /* ── SECTION LABEL ── */
 .sec-label {
 font-size: 0.62rem; font-weight: 700; letter-spacing: 2px;
-text-transform: uppercase; color: var(–text3); margin: 28px 0 12px;
+text-transform: uppercase; color: #4a5844; margin: 28px 0 12px;
 }
 
 /* ── SEASON HERO ── */
@@ -114,28 +97,28 @@ background: radial-gradient(ellipse 60% 50% at 100% 0%, rgba(200,168,74,0.06), t
 pointer-events: none;
 }
 .sh-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px; }
-.sh-label { font-size: 0.6rem; letter-spacing: 2px; text-transform: uppercase; color: var(–gold); font-weight: 700; margin-bottom: 5px; }
+.sh-label { font-size: 0.6rem; letter-spacing: 2px; text-transform: uppercase; color: #c8a84a; font-weight: 700; margin-bottom: 5px; }
 .sh-name {
 font-family: ‘Bebas Neue’, sans-serif;
-font-size: 2rem; letter-spacing: 1px; color: var(–white); line-height: 1;
+font-size: 2rem; letter-spacing: 1px; color: #f8f4ec; line-height: 1;
 }
 .status-pill {
 font-size: 0.65rem; font-weight: 700; letter-spacing: 0.5px;
 padding: 5px 12px; border-radius: 20px; white-space: nowrap;
 }
-.status-live { background: rgba(61,186,98,0.12); color: var(–green); border: 1px solid rgba(61,186,98,0.25); }
-.status-done { background: var(–gold3); color: var(–gold); border: 1px solid rgba(200,168,74,0.25); }
+.status-live { background: rgba(61,186,98,0.12); color: #3dba62; border: 1px solid rgba(61,186,98,0.25); }
+.status-done { background: rgba(200,168,74,0.12); color: #c8a84a; border: 1px solid rgba(200,168,74,0.25); }
 
 /* Progress */
-.prog-row { display: flex; justify-content: space-between; font-size: 0.7rem; color: var(–text3); margin-bottom: 7px; }
+.prog-row { display: flex; justify-content: space-between; font-size: 0.7rem; color: #4a5844; margin-bottom: 7px; }
 .prog-track { height: 4px; background: rgba(255,255,255,0.06); border-radius: 4px; overflow: hidden; margin-bottom: 16px; }
-.prog-fill { height: 100%; border-radius: 4px; background: linear-gradient(90deg, var(–gold), var(–gold2)); transition: width 0.6s ease; }
+.prog-fill { height: 100%; border-radius: 4px; background: linear-gradient(90deg, #c8a84a, #f2d060); transition: width 0.6s ease; }
 
 /* Stats */
 .sh-stats { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; margin-bottom: 14px; }
-.sh-stat { background: rgba(0,0,0,0.25); border: 1px solid var(–border); border-radius: 12px; padding: 10px 8px; text-align: center; }
-.sh-stat-val { font-family: ‘Bebas Neue’, sans-serif; font-size: 1.6rem; letter-spacing: 1px; color: var(–white); line-height: 1; }
-.sh-stat-lbl { font-size: 0.58rem; letter-spacing: 1px; text-transform: uppercase; color: var(–text3); margin-top: 3px; }
+.sh-stat { background: rgba(0,0,0,0.25); border: 1px solid rgba(255,255,255,0.07); border-radius: 12px; padding: 10px 8px; text-align: center; }
+.sh-stat-val { font-family: ‘Bebas Neue’, sans-serif; font-size: 1.6rem; letter-spacing: 1px; color: #f8f4ec; line-height: 1; }
+.sh-stat-lbl { font-size: 0.58rem; letter-spacing: 1px; text-transform: uppercase; color: #4a5844; margin-top: 3px; }
 
 /* Leader */
 .leader {
@@ -143,16 +126,16 @@ display: flex; justify-content: space-between; align-items: center;
 background: linear-gradient(90deg, rgba(200,168,74,0.1), rgba(200,168,74,0.04));
 border: 1px solid rgba(200,168,74,0.2); border-radius: 12px; padding: 12px 14px;
 }
-.leader-lbl { font-size: 0.58rem; letter-spacing: 1.5px; text-transform: uppercase; color: var(–gold); font-weight: 700; }
-.leader-name { font-size: 0.92rem; font-weight: 600; color: var(–gold2); margin-top: 3px; }
+.leader-lbl { font-size: 0.58rem; letter-spacing: 1.5px; text-transform: uppercase; color: #c8a84a; font-weight: 700; }
+.leader-name { font-size: 0.92rem; font-weight: 600; color: #f2d060; margin-top: 3px; }
 .leader-right { text-align: right; }
-.leader-pts { font-family: ‘Bebas Neue’, sans-serif; font-size: 2.2rem; letter-spacing: 1px; color: var(–gold2); line-height: 1; }
-.leader-pts-lbl { font-size: 0.58rem; letter-spacing: 1px; text-transform: uppercase; color: var(–gold); }
+.leader-pts { font-family: ‘Bebas Neue’, sans-serif; font-size: 2.2rem; letter-spacing: 1px; color: #f2d060; line-height: 1; }
+.leader-pts-lbl { font-size: 0.58rem; letter-spacing: 1px; text-transform: uppercase; color: #c8a84a; }
 
 /* ── WINNER BANNER ── */
 .winner-banner {
 background: linear-gradient(135deg, #1c1808, #231e0a, #1a1608);
-border: 1.5px solid var(–gold);
+border: 1.5px solid #c8a84a;
 border-radius: 18px; padding: 22px 20px; text-align: center; margin: 16px 0;
 position: relative; overflow: hidden;
 }
@@ -162,130 +145,130 @@ background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(200,168,74,0.12), tr
 pointer-events: none;
 }
 .wb-trophy { font-size: 2rem; margin-bottom: 4px; }
-.wb-label { font-size: 0.6rem; letter-spacing: 2.5px; text-transform: uppercase; color: var(–gold); font-weight: 700; }
-.wb-name { font-family: ‘Bebas Neue’, sans-serif; font-size: 1.8rem; letter-spacing: 2px; color: var(–gold2); margin-top: 4px; }
-.wb-season { font-size: 0.72rem; color: var(–text3); margin-top: 4px; }
+.wb-label { font-size: 0.6rem; letter-spacing: 2.5px; text-transform: uppercase; color: #c8a84a; font-weight: 700; }
+.wb-name { font-family: ‘Bebas Neue’, sans-serif; font-size: 1.8rem; letter-spacing: 2px; color: #f2d060; margin-top: 4px; }
+.wb-season { font-size: 0.72rem; color: #4a5844; margin-top: 4px; }
 
 /* ── RANKING ── */
-.ranking { background: var(–card); border: 1px solid var(–border); border-radius: 18px; overflow: hidden; }
+.ranking { background: #141a13; border: 1px solid rgba(255,255,255,0.07); border-radius: 18px; overflow: hidden; }
 .rank-row {
 display: flex; align-items: center; gap: 12px; padding: 13px 16px;
-border-bottom: 1px solid var(–border); transition: background 0.15s;
+border-bottom: 1px solid rgba(255,255,255,0.07); transition: background 0.15s;
 }
 .rank-row:last-child { border-bottom: none; }
 .rank-row.r1 { background: linear-gradient(90deg, rgba(200,168,74,0.05), transparent); }
-.rank-pos { font-family: ‘Bebas Neue’, sans-serif; font-size: 1rem; color: var(–text3); min-width: 22px; text-align: center; }
-.rank-pos.gold { color: var(–gold); }
+.rank-pos { font-family: ‘Bebas Neue’, sans-serif; font-size: 1rem; color: #4a5844; min-width: 22px; text-align: center; }
+.rank-pos.gold { color: #c8a84a; }
 .rank-badge {
-background: rgba(255,255,255,0.04); border: 1px solid var(–border2);
+background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.13);
 border-radius: 8px; width: 30px; height: 30px; display: flex;
 align-items: center; justify-content: center;
-font-family: ‘Bebas Neue’, sans-serif; font-size: 0.9rem; letter-spacing: 1px; color: var(–gold);
+font-family: ‘Bebas Neue’, sans-serif; font-size: 0.9rem; letter-spacing: 1px; color: #c8a84a;
 flex-shrink: 0;
 }
 .rank-info { flex: 1; min-width: 0; }
-.rank-name { font-size: 0.88rem; font-weight: 500; color: var(–text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.rank-record { font-size: 0.65rem; color: var(–text3); margin-top: 2px; }
+.rank-name { font-size: 0.88rem; font-weight: 500; color: #e2ddd4; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.rank-record { font-size: 0.65rem; color: #4a5844; margin-top: 2px; }
 .rank-right { text-align: right; flex-shrink: 0; }
-.rank-pts-big { font-family: ‘Bebas Neue’, sans-serif; font-size: 1.3rem; letter-spacing: 1px; color: var(–white); }
-.rank-pts-lbl { font-size: 0.58rem; color: var(–text3); letter-spacing: 0.5px; text-transform: uppercase; }
+.rank-pts-big { font-family: ‘Bebas Neue’, sans-serif; font-size: 1.3rem; letter-spacing: 1px; color: #f8f4ec; }
+.rank-pts-lbl { font-size: 0.58rem; color: #4a5844; letter-spacing: 0.5px; text-transform: uppercase; }
 
 /* ── TEAMS LIST ── */
 .teams-list { display: flex; flex-direction: column; gap: 6px; }
 .team-item {
 display: flex; align-items: center; gap: 12px;
-background: var(–card); border: 1px solid var(–border);
+background: #141a13; border: 1px solid rgba(255,255,255,0.07);
 border-radius: 12px; padding: 11px 14px;
 }
-.team-badge { font-family: ‘Bebas Neue’, sans-serif; font-size: 0.95rem; letter-spacing: 1px; color: var(–gold); width: 24px; text-align: center; flex-shrink: 0; }
-.team-name-txt { font-size: 0.88rem; font-weight: 500; color: var(–text); }
+.team-badge { font-family: ‘Bebas Neue’, sans-serif; font-size: 0.95rem; letter-spacing: 1px; color: #c8a84a; width: 24px; text-align: center; flex-shrink: 0; }
+.team-name-txt { font-size: 0.88rem; font-weight: 500; color: #e2ddd4; }
 
 /* ── MATCHES ── */
 .runde-sep {
 display: flex; align-items: center; gap: 10px;
 margin: 20px 0 10px;
 }
-.runde-sep-line { flex: 1; height: 1px; background: var(–border); }
+.runde-sep-line { flex: 1; height: 1px; background: rgba(255,255,255,0.07); }
 .runde-sep-label {
 font-size: 0.6rem; letter-spacing: 2px; text-transform: uppercase;
-color: var(–text3); font-weight: 700; white-space: nowrap;
+color: #4a5844; font-weight: 700; white-space: nowrap;
 }
 
 .match-card {
-background: var(–card); border: 1px solid var(–border);
+background: #141a13; border: 1px solid rgba(255,255,255,0.07);
 border-radius: 14px; padding: 13px 15px; margin-bottom: 7px;
 position: relative; overflow: hidden;
 }
 .match-card.played { border-color: rgba(255,255,255,0.08); }
-.match-card-venue { font-size: 0.65rem; color: var(–text3); margin-bottom: 10px; display: flex; align-items: center; gap: 4px; }
+.match-card-venue { font-size: 0.65rem; color: #4a5844; margin-bottom: 10px; display: flex; align-items: center; gap: 4px; }
 .match-row { display: flex; align-items: center; gap: 8px; }
 .match-team { flex: 1; }
 .match-team.right { text-align: right; }
-.match-team-id { font-size: 0.6rem; letter-spacing: 1px; text-transform: uppercase; color: var(–text3); font-weight: 700; }
-.match-team-name { font-size: 0.88rem; font-weight: 500; color: var(–text); margin-top: 2px; }
+.match-team-id { font-size: 0.6rem; letter-spacing: 1px; text-transform: uppercase; color: #4a5844; font-weight: 700; }
+.match-team-name { font-size: 0.88rem; font-weight: 500; color: #e2ddd4; margin-top: 2px; }
 .match-score-wrap { text-align: center; min-width: 90px; }
 .score-box {
 display: inline-block;
-background: rgba(0,0,0,0.4); border: 1px solid var(–border2);
+background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.13);
 border-radius: 8px; padding: 5px 10px;
-font-family: ‘Bebas Neue’, sans-serif; font-size: 1rem; letter-spacing: 2px; color: var(–white);
+font-family: ‘Bebas Neue’, sans-serif; font-size: 1rem; letter-spacing: 2px; color: #f8f4ec;
 }
 .score-box.pending {
-color: var(–text3); font-family: ‘DM Sans’, sans-serif;
+color: #4a5844; font-family: ‘DM Sans’, sans-serif;
 font-size: 0.65rem; font-weight: 400; letter-spacing: 0.5px; padding: 6px 10px;
 }
 
 /* ── TEAM SCHEDULE ── */
 .team-sched-card {
-background: var(–card); border: 1px solid var(–border);
+background: #141a13; border: 1px solid rgba(255,255,255,0.07);
 border-radius: 16px; margin-bottom: 10px; overflow: hidden;
 }
 .ts-header {
 display: flex; justify-content: space-between; align-items: center;
-padding: 13px 16px; border-bottom: 1px solid var(–border);
+padding: 13px 16px; border-bottom: 1px solid rgba(255,255,255,0.07);
 background: rgba(255,255,255,0.02);
 }
 .ts-left { display: flex; align-items: center; gap: 10px; }
-.ts-badge { font-family: ‘Bebas Neue’, sans-serif; font-size: 1rem; letter-spacing: 1px; color: var(–gold); background: rgba(200,168,74,0.08); border: 1px solid rgba(200,168,74,0.2); border-radius: 8px; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; }
-.ts-name { font-size: 0.9rem; font-weight: 600; color: var(–white); }
+.ts-badge { font-family: ‘Bebas Neue’, sans-serif; font-size: 1rem; letter-spacing: 1px; color: #c8a84a; background: rgba(200,168,74,0.08); border: 1px solid rgba(200,168,74,0.2); border-radius: 8px; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; }
+.ts-name { font-size: 0.9rem; font-weight: 600; color: #f8f4ec; }
 .ts-stats { display: flex; gap: 14px; }
 .ts-stat { text-align: center; }
 .ts-stat-val { font-family: ‘Bebas Neue’, sans-serif; font-size: 1.1rem; letter-spacing: 1px; }
-.ts-stat-lbl { font-size: 0.55rem; letter-spacing: 1px; text-transform: uppercase; color: var(–text3); }
+.ts-stat-lbl { font-size: 0.55rem; letter-spacing: 1px; text-transform: uppercase; color: #4a5844; }
 
 .ts-match-row {
 display: flex; align-items: center; gap: 10px;
-padding: 10px 16px; border-bottom: 1px solid var(–border);
+padding: 10px 16px; border-bottom: 1px solid rgba(255,255,255,0.07);
 }
 .ts-match-row:last-child { border-bottom: none; }
 .result-tag { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.5px; padding: 3px 10px; border-radius: 20px; min-width: 44px; text-align: center; }
-.rt-w { background: rgba(61,186,98,0.12); color: var(–green); border: 1px solid rgba(61,186,98,0.2); }
-.rt-l { background: rgba(212,88,88,0.1); color: var(–red); border: 1px solid rgba(212,88,88,0.2); }
-.rt-p { background: rgba(255,255,255,0.04); color: var(–text3); border: 1px solid var(–border); }
+.rt-w { background: rgba(61,186,98,0.12); color: #3dba62; border: 1px solid rgba(61,186,98,0.2); }
+.rt-l { background: rgba(212,88,88,0.1); color: #d45858; border: 1px solid rgba(212,88,88,0.2); }
+.rt-p { background: rgba(255,255,255,0.04); color: #4a5844; border: 1px solid rgba(255,255,255,0.07); }
 .ts-vs { flex: 1; }
-.ts-vs-name { font-size: 0.84rem; font-weight: 500; color: var(–text); }
-.ts-vs-date { font-size: 0.64rem; color: var(–text3); margin-top: 2px; }
-.ts-score-txt { font-family: ‘Bebas Neue’, sans-serif; font-size: 0.85rem; letter-spacing: 1px; color: var(–text2); }
+.ts-vs-name { font-size: 0.84rem; font-weight: 500; color: #e2ddd4; }
+.ts-vs-date { font-size: 0.64rem; color: #4a5844; margin-top: 2px; }
+.ts-score-txt { font-family: ‘Bebas Neue’, sans-serif; font-size: 0.85rem; letter-spacing: 1px; color: #8a9882; }
 
 /* ── SEASONS LIST ── */
 .season-card {
-background: var(–card); border: 1px solid var(–border);
+background: #141a13; border: 1px solid rgba(255,255,255,0.07);
 border-radius: 16px; padding: 16px 18px; margin-bottom: 10px;
 }
 .season-card.current { border-color: rgba(200,168,74,0.3); }
 .sc-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; }
-.sc-name { font-family: ‘Bebas Neue’, sans-serif; font-size: 1.2rem; letter-spacing: 1px; color: var(–white); }
-.sc-winner { font-size: 0.82rem; color: var(–gold); font-weight: 500; margin-top: 6px; }
-.sc-teams { font-size: 0.7rem; color: var(–text3); margin-top: 6px; line-height: 1.8; }
-.sc-teams strong { color: var(–gold); }
+.sc-name { font-family: ‘Bebas Neue’, sans-serif; font-size: 1.2rem; letter-spacing: 1px; color: #f8f4ec; }
+.sc-winner { font-size: 0.82rem; color: #c8a84a; font-weight: 500; margin-top: 6px; }
+.sc-teams { font-size: 0.7rem; color: #4a5844; margin-top: 6px; line-height: 1.8; }
+.sc-teams strong { color: #c8a84a; }
 
 /* ── SPLIT TABS ── */
 .sub-tabs { display: flex; gap: 6px; margin-bottom: 16px; }
-.sub-tab { flex: 1; text-align: center; padding: 8px; background: var(–card); border: 1px solid var(–border); border-radius: 10px; font-size: 0.75rem; font-weight: 500; color: var(–text3); cursor: pointer; transition: all 0.15s; }
-.sub-tab.active { background: rgba(200,168,74,0.1); border-color: rgba(200,168,74,0.3); color: var(–gold); }
+.sub-tab { flex: 1; text-align: center; padding: 8px; background: #141a13; border: 1px solid rgba(255,255,255,0.07); border-radius: 10px; font-size: 0.75rem; font-weight: 500; color: #4a5844; cursor: pointer; transition: all 0.15s; }
+.sub-tab.active { background: rgba(200,168,74,0.1); border-color: rgba(200,168,74,0.3); color: #c8a84a; }
 
 /* ── EMPTY ── */
-.empty { text-align: center; padding: 40px 20px; color: var(–text3); font-size: 0.85rem; line-height: 1.6; }
+.empty { text-align: center; padding: 40px 20px; color: #4a5844; font-size: 0.85rem; line-height: 1.6; }
 .empty-icon { font-size: 2rem; margin-bottom: 10px; }
 
 /* ── ANIMATIONS ── */
@@ -325,13 +308,13 @@ border-radius: 16px; padding: 16px 18px; margin-bottom: 10px;
 
   </div>
 
-  <!-- ══ SAISON ══ -->
+<!- SAISON ->
 
   <div id="tabSeason" class="fade-up">
     <div id="seasonContent"><div class="empty"><div class="empty-icon">⏳</div>Lade Daten…</div></div>
   </div>
 
-  <!-- ══ SPIELPLAN ══ -->
+<!- SPIELPLAN ->
 
   <div id="tabDuostats" style="display:none;" class="fade-up">
     <div id="mainDuoStatsContent" style="margin-top:14px"><div style="text-align:center;padding:40px 20px;color:#4a5844;font-size:.85rem">Lade...</div></div>
@@ -345,7 +328,7 @@ border-radius: 16px; padding: 16px 18px; margin-bottom: 10px;
     <div id="spielplanContent"></div>
   </div>
 
-  <!-- ══ ARCHIV ══ -->
+<!- ARCHIV ->
 
   <div id="tabSeasons" style="display:none;" class="fade-up">
     <div id="seasonsContent"></div>
@@ -553,8 +536,8 @@ function renderSpielplan(){
             <div class="ts-name">${tdata.long}</div>
           </div>
           <div class="ts-stats">
-            <div class="ts-stat"><div class="ts-stat-val" style="color:var(--green)">${wins}</div><div class="ts-stat-lbl">W</div></div>
-            <div class="ts-stat"><div class="ts-stat-val" style="color:var(--red)">${losses}</div><div class="ts-stat-lbl">N</div></div>
+            <div class="ts-stat"><div class="ts-stat-val" style="color:#3dba62">${wins}</div><div class="ts-stat-lbl">W</div></div>
+            <div class="ts-stat"><div class="ts-stat-val" style="color:#d45858">${losses}</div><div class="ts-stat-lbl">N</div></div>
             <div class="ts-stat"><div class="ts-stat-val">${pts[tid]||0}</div><div class="ts-stat-lbl">Pkt</div></div>
           </div>
         </div>`;
@@ -618,7 +601,7 @@ loadData();
 renderSeason();
 </script>
 
-<!-- Sponsor Banner -->
+<!- SPONSOR ->
 
 <div style="max-width:720px;margin:0 auto;padding:0 16px 40px">
   <div style="font-size:.58rem;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.25);font-weight:700;text-align:center;margin-bottom:12px">Official Sponsors</div>
